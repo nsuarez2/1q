@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Nico Suarez - {{page}}</title>
+
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<script src="https://code.jquery.com/jquery-2.2.2.min.js"   integrity="sha256-36cp2Co+/62rEAAYHLmRCPIych47CvdM+uTBJwSzWjI="   crossorigin="anonymous"></script>
+
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Quicksand" />
+	<link href='https://fonts.googleapis.com/css?family=Yellowtail' rel='stylesheet' type='text/css'>
+
+	<link rel="stylesheet" type="text/css" href="static/style.css">
+
+	<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+	<script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+	<script src="https://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+
+	<script src="static/typed.js"></script>
+
+	<script type=text/JavaScript>
+		{% if pictures %}
+		{% else %}
+		$(window).scroll(function() {
+	    	if ($(".navbar").offset().top > 1) {
+	        	$('#custom-nav').addClass('affix');
+	    	} else {
+	        	$('#custom-nav').removeClass('affix');
+	    	} 
+		});
+		{% endif %}
+
+		$(document).ready(function(){
+	  		$(".jumbotron h1").hide();
+	  		$(".arrow").hide();
+	  		$(".contact-info h1").hide();
+	  	});
+	</script>
+
+</head>
+<body>
+	<div id="custom-nav" class="navbar navbar-default navbar-fixed-top">
+		<div class="container">
+			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+	         	<span class="sr-only">Menu</span>
+	         	<span class="icon-bar"></span>
+	          	<span class="icon-bar"></span>
+	          	<span class="icon-bar"></span>
+	        </button>
+			<div class="navbar-header">
+				<a class="navbar-brand" href="home.html">N<span class="hide-this">ico</span>S<span class="hide-this">uarez</span></a>	
+			</div>
+
+			<nav class="collapse navbar-collapse">
+				<ul class="nav nav-pills navbar-right">
+  					<li {% if home %}class="active"{% endif %}><a href="home.html">Home</a></li>
+  					<li {% if skills %}class="active"{% endif %}><a href="skills.html">Skills</a></li>
+  					<li {% if pictures %}class="active"{% endif %}><a href="pictures.html">Pictures</a></li>
+  					<li {% if contact %}class="active"{% endif %}><a href="contact.html">Contact</a></li>
+				</ul>
+			</nav>
+		</div>
+	</div>
+	<div class="main">
+		{% block content %}
+		YOU SHOULDN'T BE SEEING THIS
+		{% endblock %}
+	</div>
+	<div class="footer">
+		<ul>
+			<li><a class="fa fa-facebook fa-4x" href="https://facebook.com/nicosuarez25" target="_blank"></a></li>
+			<li><a class="fa fa-instagram fa-4x" href="https://www.instagram.com/nicosuarez/" target="_blank"></a></li>
+			<li><a class="fa fa-twitter fa-4x" href="https://twitter.com/_NicoSuarez_" target="_blank"></a></li>
+			<li><a class="fa fa-github fa-4x" href="http://github.com/nsuarez2" target="_blank"></a></li>
+			<li><a class="fa fa-linkedin fa-4x" href="https://www.linkedin.com/in/nsuarez2" target="_blank"></a></li>
+		</ul>
+	</div>
+</body>
+</html>
