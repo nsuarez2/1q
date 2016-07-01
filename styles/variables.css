@@ -1,6 +1,6 @@
 :root {
-	--brand-purple: #8660b4;
-	--brand-purple-dark: #2f1f42;
+	--brand-purple: 		#8660b4;
+	--brand-purple-dark: 	#2f1f42;
 
 	--gray-darkest:          #233137;
 	--gray-darker:           #3f5167;
@@ -8,6 +8,9 @@
 	--gray-light:            #7a8491;
 	--gray-lighter:          #c4cdda;
 	--gray-lightest:         #e6edf4;
+
+	--player-width:			 640px;
+	--player-height:		 80px;
 }
 
 @font-face {

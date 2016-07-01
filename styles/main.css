@@ -1,9 +1,10 @@
 @import 'variables.css';
+@import 'host.css';
 
 body {
 	margin: 0;
 	padding: 0;
-	font-family: timeBurner;;
+	font-family: 'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
 	z-index: 0
 }
 
@@ -15,9 +16,10 @@ a {
 	background-color: var(--brand-purple);
 	height: 100px;
 	width: 100%;
-	position: absolute;
+	position: fixed;
 	top: 0;
-	z-index: 0;
+	z-index: 100;
+	font-family: comfortaa;
 }
 
 .navbar-brand {
@@ -35,6 +37,7 @@ a {
 .brand-container {
 	width: 28%;
 	margin-left: 36%;
+	display: inline-block;
 }
 
 .brand-container:hover #fun {
@@ -49,8 +52,50 @@ a {
 	display: none;
 }
 
-
 .navbar a {
+	color: white;
+	font-size: 20px;
+	vertical-align: middle;
+	display: inline-block;
 	float: right;
-
+	margin-right: 20px;
+	margin-top: 37px;
+	z-index: 1;
 }
+
+.main-content {
+	margin-top: 100px;
+	text-align: center;
+}
+
+.info-banner {
+	background-color: var(--brand-purple-dark);
+	margin: 0 auto;
+	width: var(--player-width);
+	position: relative;
+	top: -5px;
+	height: 55px;
+	border-radius: 5px;
+	z-index: 50;
+}
+
+.info-banner h1 {
+	color: var(--gray-lighter);
+	height: 50px;
+	padding-top: 13px;
+}
+
+.login {
+	top: -100px;
+	background-color: var(--gray-darkest);
+}
+.login p {
+	font-size: 200px;
+	font-weight: bold;
+	color: red;
+	margin: 0;
+}
+
+
+
+

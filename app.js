@@ -93,6 +93,10 @@ app.get('/', function(req, res){
   res.redirect('/auth/spotify');
 });
 
+app.get('/login', function(req, res) {
+  res.render('login.html');
+})
+
 
 app.get('/join/:ip', function(req, res) {
 

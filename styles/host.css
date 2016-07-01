@@ -1,0 +1,26 @@
+.playlist {
+	width: var(--player-width);
+}
+
+iframe {
+	margin-top: 15px;
+}
+
+.bottom-banner {
+	position: fixed;
+	bottom: -5px;
+	left: 25%;
+	border-radius: 5px;
+	background-color: var(--brand-purple-dark);
+	margin: 0 auto;
+	width: 50%;
+	height: 55px;
+	z-index: 50;
+}
+
+.bottom-banner p {
+	color: var(--gray-lighter);
+}
+.bottom-banner a {
+	color: var(--gray-lightest);
+}
