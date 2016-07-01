@@ -4,7 +4,9 @@
 	<div id="host">
 		<h1>Fuck you {{ user.username }}.</h1>
 		<p>http://localhost:6969/join/{{ip}}</p>
-		<div id="arrived"></div>
+		{% if msg %}
+		<p>{{ msg }}</p>
+		{% endif %}
 		<div class="searchbox">
 			<input type="text" ng-model="query" ng-change="loadsearch()" ng-keyup="loadsearch()" placeholder="Search..." />
 		</div>

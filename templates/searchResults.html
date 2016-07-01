@@ -21,7 +21,7 @@ $(".trackEntry").click(function() {
 	console.log(uri);
   $(this).css("background-color", "green").fadeOut( 1000 );
 	$.post('/sendTrack', {amigo: {input: uri }});
-	window.location.pathname = "/join/" + "{{ ip }}";
+	window.location.pathname = "/amigo";
 });
 </script>
 

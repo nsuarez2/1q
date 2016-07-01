@@ -9,8 +9,9 @@ var express = require('express'),
     net = require('net'),
     network = require('network'),
     cheerio = require('cheerio'),
-	$ = require('jquery'),
-	SpotifyWebApi = require('spotify-web-api-node');
+    $ = require('jquery'),
+    SpotifyWebApi = require('spotify-web-api-node'),
+    request = require('request');
 
 var consolidate = require('consolidate');
 
@@ -105,7 +106,7 @@ app.get('/join/:ip', function(req, res) {
   client.on('error', function(err) {
     console.log(err);
   });
-  res.render('amigoIndex.html', { ip: IP});
+  res.redirect('/amigo');
 });
 
 app.get('/account', ensureAuthenticated, function(req, res){
@@ -113,7 +114,11 @@ app.get('/account', ensureAuthenticated, function(req, res){
 });
 
 app.get('/hostIndex', function(req, res) {
-  res.render('hostIndex.html', { user: req.user, ip: IP });
+  res.render('hostIndex.html', { user: req.user, ip: IP});
+});
+
+app.get('/amigo', function(req, res) {
+  res.render('amigoIndex.html', { ip: IP});
 });
 
 // GET /auth/spotify
@@ -143,6 +148,7 @@ app.get('/callback',
       });
       socket.on('data', function(data) {
         console.log('Server recieved: ' + data);
+<<<<<<< Updated upstream
         if(String(data).match(/^spotify:track:\w*$/)) {
           var trackid = String(data).replace(/^spotify:track:(.*)$/, '$1');
           spotifyApi.getTrack(trackid)
@@ -153,6 +159,17 @@ app.get('/callback',
         } else {
           console.log('Malformed data recieved');
         }
+=======
+        request.post('hostIndex.html', { user: req.user, ip: IP, msg: data},
+          function (error, response, body) {
+            if (error) {
+              console.log(error);
+            }
+            if (!error && response.statusCode == 200) {
+              console.log(body)
+            }
+        });
+>>>>>>> Stashed changes
       });
     });
 
