@@ -12,10 +12,14 @@
 	</div>
 	<script>
 		var socket = io.connect('http://{{ip}}:8080');
+                var queue_top = 0;
+                var queue_bottom = 0;
     socket.on('newTrack', function(data) {
       var trackID = data.uri;
       $('#player').attr("src", "https://embed.spotify.com/?uri=" + trackID + "&theme=white&view=coverart");
-      $(".playlist").append("<p>" + data.name + "</p>").hide().slideDown("slow");
+      $(".playlist").append("<p id=\"" + queue_top + "\">" + data.name + "</p>");
+                $("#"+queue_top).hide().slideDown("slow");
+                queue_top++; 
     });
 
 	</script>
