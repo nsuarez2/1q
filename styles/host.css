@@ -6,6 +6,11 @@ iframe {
 	margin-top: 15px;
 }
 
+#host {
+	height: 100%;
+	background-color: white;
+}
+
 .bottom-banner {
 	position: fixed;
 	bottom: -5px;
