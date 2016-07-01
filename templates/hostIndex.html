@@ -8,7 +8,7 @@
 		<iframe id='player' src="https://embed.spotify.com/?uri=spotify:track:7GhIk7Il098yCjg4BQjzvb&theme=white&view=coverart" width="640" height="80" frameborder="0" allowtransparency="true"></iframe>
 		<div class="playlist"></div>
 		<div class="bottom-banner">
-			<p>Send this link with your friends: <a href="http://{{ip}}:6969/join/{{ip}}" target="_blank">http://{{ip}}:6969/join/{{ip}}</a></p>
+			<p>Send this link to your friends: <a href="http://{{ip}}:6969/join/{{ip}}" target="_blank">http://{{ip}}:6969/join/{{ip}}</a></p>
 		</div>
 	</div>
 	<script>
@@ -26,6 +26,14 @@
       $('#player').attr("src", url);
       $(".playlist").append("<p>" + data[data.length-1].name + "</p>").hide().slideDown("slow");
     });
-
+$("#buttonD").click(function() {
+url = 'https://embed.spotify.com/?uri=spotify:trackset:1Q:';
+		url += String(data[0].uri).replace(/spotify:track:(.*)/, '$1');
+		for (var i = 2; i < data.length; i++) {
+		  url += ',' + String(data[i].uri).replace(/spotify:track:(.*)/, '$1');
+		}
+		url += '&theme=white&view=coverart';
+		      $('#player').attr("src", url);
+});
 	</script>
 {% endblock %}

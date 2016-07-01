@@ -11,5 +11,18 @@
 			<input id="track-search-input" type="text" name="amigo[search]"/>
 			<input type="submit" value="piss into the wind"/>
 		</form>
+		<div id="amigo_playlist"></div>
 	</div>
+	
+	<script>
+		var socket = io.connect('http://{{ip}}:8080');
+		socket.emit('getPlaylist', {});
+		console.log('tried to send');
+		socket.on('providePlaylist', function(data) {
+		  console.log('recieved playlist');
+		  for(var i = 0; i < data.length; i++) {
+			$("#amigo_playlist").append("<p>" + data[i].name + "</p>");
+		  }
+		});
+	</script>
 {% endblock %}/
