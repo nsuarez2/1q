@@ -7,13 +7,15 @@ var express = require('express'),
     swig = require('swig'),
     SpotifyStrategy = require('./index').Strategy,
     net = require('net'),
-    http = require('http');
+    network = require('network'),
+    cheerio = require('cheerio');
 
 var consolidate = require('consolidate');
 
 var appKey = '20535ac1ce784763a79e16c952b9cfe8';
 var appSecret = 'f19da400224c4f968acaf580111f534e';
 var server;
+var client;
 var IP;
 
 // Passport session setup.
@@ -59,7 +61,10 @@ app.set('views', __dirname + '/templates');
 app.set('view engine', 'ejs');
 
 app.use(cookieParser());
-app.use(bodyParser());
+app.use(bodyParser.urlencoded({
+    extended: true
+}));
+app.use(bodyParser.json());
 app.use(methodOverride());
 app.use(session({ secret: 'keyboard cat' }));
 // Initialize Passport!  Also use passport.session() middleware, to support
@@ -77,10 +82,9 @@ app.get('/', function(req, res){
 
 app.get('/join/:ip', function(req, res) {
   var hostIP = req.params.ip;
-  var client = new net.Socket();
-  client.connect(8080, 'localhost', function() {
+  client = new net.Socket();
+  client.connect(8080, hostIP, function() {
     console.log('Connected');
-    client.write('Hello, server! Love, Client.');
   });
 
   client.on('data', function(data) {
@@ -126,7 +130,6 @@ app.get('/callback',
   passport.authenticate('spotify', { failureRedirect: '/login' }),
   function(req, res) {
     server = net.createServer(function(socket) {
-      socket.write('Echo server\r\n');
       socket.pipe(socket);
       socket.on('error', function(err) {
         console.log(err)
@@ -136,21 +139,29 @@ app.get('/callback',
       });
     });
 
-    server.listen(8080, 'localhost');
-    
-    http.get({'host': 'api.ipify.org', 'port': 80, 'path': '/'}, function(resp) {
-      resp.on('data', function(ip) {
-        IP = ip.toString();
-        res.redirect('/hostIndex');
-      });
+    network.get_private_ip(function(err, ip) {
+      if (err) {
+        console.log(err)
+      } else {
+        IP = ip; 
+      }
+      server.listen(8080, IP);
+      res.redirect('/hostIndex');
     });
 });
 
-app.get('/logout', function(req, res){
+app.get('/logout', function(req, res) {
   req.logout();
   res.redirect('/');
 });
 
+app.post('/sendTrack', function(req, res) {
+  console.log('I AM CLICKEDDDDDDDDD');
+  //var $trackIDinput = $("track-send-input");
+  var input = req.body.amigo.input;
+  console.log(input);
+  client.write(input);
+});
 app.listen(6969);
 console.log('Listening on 6969');
 
