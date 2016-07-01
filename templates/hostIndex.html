@@ -15,6 +15,10 @@
 		var socket = io.connect('http://{{ip}}:8080');
     socket.on('newTrack', function(data) {
 	  var url = 'https://embed.spotify.com/?uri=spotify:track:7GhIk7Il098yCjg4BQjzvb&theme=white&view=coverart';
+	  $(".playlist").empty();
+	  for(var i = 0; i < data.length; i++) {
+		$(".playlist").append("<p>" + data[i].name + "</p>");
+	  }
 	  if(data.length > 0) {
 		url = 'https://embed.spotify.com/?uri=spotify:trackset:1Q:';
 		url += String(data[0].uri).replace(/spotify:track:(.*)/, '$1');
@@ -24,7 +28,6 @@
 		url += '&theme=white&view=coverart';
 	  }
       $('#player').attr("src", url);
-      $(".playlist").append("<p>" + data[data.length-1].name + "</p>").hide().slideDown("slow");
     });
 $("#buttonD").click(function() {
 url = 'https://embed.spotify.com/?uri=spotify:trackset:1Q:';
