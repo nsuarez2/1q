@@ -190,7 +190,7 @@ app.post('/searchTrack', function(req, res) {
   //console.log('Searched');
   var search = req.body.amigo.search;
   //console.log(search);
-  spotifyApi.searchTracks(search)
+  spotifyApi.searchTracks(search, {limit: 50})
 	.then(function(data) {
 		//console.log('search for ' + search, data.body);
 		//console.log(data.body.tracks.items[0]);
