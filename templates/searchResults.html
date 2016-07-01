@@ -4,15 +4,22 @@
 
 {% for track in tracks %}
 	<div class="trackEntry" uri={{ track.uri }}>
-	<img src={{ track.album.images[2].url }} style="width:64px;height:64px;">
+	<img src={{ track.album.images[2].url }} style="width:64px;height:64px;" align="middle">
 	{{ track.name }} -- {{ track.artists[0].name }}
 	</div>
 {% endfor %}
 
 <script>
+  $(".trackEntry").mouseenter(function() {
+  $(this).css("background-color", "yellow");
+});
+  $(".trackEntry").mouseleave(function() {
+  $(this).css("background-color", "white");
+});
 $(".trackEntry").click(function() {
 	var uri = $( this ).attr("uri");
 	console.log(uri);
+  $(this).css("background-color", "green").fadeOut( 1000 );
 	$.post('/sendTrack', {amigo: {input: uri }});
 	window.location.pathname = "/join/" + "{{ ip }}";
 });
