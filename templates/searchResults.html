@@ -4,24 +4,27 @@
 <div class="searchResultsContainer">
 {% for track in tracks %}
 	<div class="trackEntry" uri={{ track.uri }}>
-	<img src={{ track.album.images[2].url }} style="width:64px;height:64px;" align="middle">
-	{{ track.name }} -- {{ track.artists[0].name }}
+		<div class="left">
+			<img src={{ track.album.images[2].url }}>
+		</div>
+		<div class="right">
+			<section class="top">
+				<p>{{ track.name }}</p>
+			</section>
+			<section class="bottom">
+				<p>{{ track.artists[0].name }}</p>
+			</section> 
+		</div>
 	</div>
 {% endfor %}
 </div>
 <script>
 var socket = io.connect('http://{{ip}}:8080');
 
-  $(".trackEntry").mouseenter(function() {
-  $(this).css("background-color", "var(--gray-light)");
-});
-  $(".trackEntry").mouseleave(function() {
-  $(this).css("background-color", "white");
-});
 $(".trackEntry").click(function() {
 	var uri = $( this ).attr("uri");
 	console.log(uri);
-  $(this).css("background-color", "green").fadeOut( 1000 );
+  $(this).css("background-color", '#d3adff').fadeOut( 1000 );
 	socket.emit('sendTrack', {data: uri});
 	window.location.pathname = "/amigo";
 });

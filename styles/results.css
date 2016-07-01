@@ -1,0 +1,58 @@
+.trackEntry {
+	background-color: white;
+	border-bottom: solid var(--gray-light) 0.5px;
+	height: 64px;
+	vertical-align: middle;
+}
+
+.trackEntry:hover {
+	background-color: var(--brand-purple-light);
+}
+
+.trackEntry img {
+	width: 64px;
+	height: 64px;
+	align: middle;
+}
+
+.left {
+	width: 20%;
+	display: inline-block;
+	height: 64px
+}
+
+.right {
+	width: 80%;
+	display: inline-block;
+	height: 63px;
+}
+
+.trackEntry .left {
+	width: 64px;
+}
+
+.right .top {
+	width: 100%;
+	height: 31px;
+}
+.right .bottom {
+	width: 100%;
+	height: 30px;
+}
+
+.right .top p {
+	color: black;
+	font-size: 14px;
+	padding-top: 3px;
+	padding-bottom: 3px;
+	margin: 0;
+}
+
+.right .bottom p {
+	color: var(--gray-darkest);
+	font-size: 10px;
+	padding-top: 3px;
+	padding-bottom: 3px; 
+	margin: 0;
+}
+
