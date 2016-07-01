@@ -179,8 +179,9 @@ app.post('/searchTrack', function(req, res) {
 		console.log('search for ' + search, data.body);
 		console.log(data.body.tracks.items[0]);
 		var topTrack = data.body.tracks.items[0];
+		console.log(topTrack.album.images);
 		res.render('searchResults.html', 
-			{ 
+			{
 				user: req.user, 
 				ip: IP,
 				tracks: data.body.tracks.items

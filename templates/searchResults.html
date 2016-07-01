@@ -4,7 +4,8 @@
 
 {% for track in tracks %}
 	<div class="trackEntry" uri={{ track.uri }}>
-	<p>{{ track.name }} -- {{ track.artists[0].name }}</p>
+	<img src={{ track.album.images[2].url }} style="width:64px;height:64px;">
+	{{ track.name }} -- {{ track.artists[0].name }}
 	</div>
 {% endfor %}
 
@@ -13,7 +14,7 @@ $(".trackEntry").click(function() {
 	var uri = $( this ).attr("uri");
 	console.log(uri);
 	$.post('/sendTrack', {amigo: {input: uri }});
-window.location.pathname = "/join/" + "{{ ip }}";
+	window.location.pathname = "/join/" + "{{ ip }}";
 });
 </script>
 
