@@ -3,7 +3,7 @@
 {% block content %}
 	<div id="host">
 		<h1>Fuck you {{ user.username }}.</h1>
-		<p>http://localhost:6969/join/{{ip}}</p>
+		<a href="http://localhost:6969/join/{{ip}}" target="_blank">http://localhost:6969/join/{{ip}}</a>
 		{% if msg %}
 		<p>{{ msg }}</p>
 		{% endif %}
