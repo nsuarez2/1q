@@ -89,9 +89,8 @@ app.get('/', function(req, res){
 });
 
 app.get('/join/:ip', function(req, res) {
-  var hostIP = req.params.ip;
   client = new net.Socket();
-  client.connect(8080, hostIP, function() {
+  client.connect(8080, IP, function() {
     console.log('Connected');
   });
 
@@ -106,7 +105,7 @@ app.get('/join/:ip', function(req, res) {
   client.on('error', function(err) {
     console.log(err);
   });
-  res.render('amigoIndex.html', { ip: hostIP});
+    res.render('amigoIndex.html', { ip: IP});
 });
 
 app.get('/account', ensureAuthenticated, function(req, res){

@@ -13,7 +13,7 @@ $(".trackEntry").click(function() {
 	var uri = $( this ).attr("uri");
 	console.log(uri);
 	$.post('/sendTrack', {amigo: {input: uri }});
-	
+window.location.pathname = "/join/" + "{{ ip }}";
 });
 </script>
 
