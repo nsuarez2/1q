@@ -10,7 +10,7 @@
 {% endfor %}
 
 <script>
-var socket = io.connect('http://localhost:8080');
+var socket = io.connect('http://{{ip}}:8080');
 
   $(".trackEntry").mouseenter(function() {
   $(this).css("background-color", "yellow");

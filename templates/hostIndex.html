@@ -3,18 +3,19 @@
 {% block content %}
 	<div id="host">
 		<h1>Fuck you {{ user.username }}.</h1>
-		<a href="http://localhost:6969/join/{{ip}}" target="_blank">http://localhost:6969/join/{{ip}}</a>
+		<a href="http://{{ip}}:6969/join/{{ip}}" target="_blank">8=====D</a>
 		<p id='message'></p>
 		<div class="searchbox">
 			<input type="text" ng-model="query" ng-change="loadsearch()" ng-keyup="loadsearch()" placeholder="Search..." />
 		</div>
-		<iframe src="https://embed.spotify.com/?uri=spotify:track:32lm3769IRfcnrQV11LO4E&theme=white&view=coverart" width="300" height="380" frameborder="0" allowtransparency="true"></iframe>
+		<iframe id='player' src="https://embed.spotify.com/?uri=spotify:track:32lm3769IRfcnrQV11LO4E&theme=white&view=coverart" width="300" height="380" frameborder="0" allowtransparency="true" autoplay></iframe>
 	</div>
 	<script>
-		var socket = io.connect('http://localhost:8080');
-
+		var socket = io.connect('http://{{ip}}:8080');
     socket.on('newTrack', function(data) {
       $('#message').html(data.name);
+      var trackID = data.uri;
+      $('#player').attr("src", "https://embed.spotify.com/?uri=" + trackID + "&theme=white&view=coverart");
     });
 
 	</script>

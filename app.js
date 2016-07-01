@@ -95,25 +95,11 @@ app.get('/', function(req, res){
 
 app.get('/join/:ip', function(req, res) {
 
+  IP = req.params.ip;
+
   http.listen(8080, function(){
 
   });
-  // client = new net.Socket();
-  // client.connect(8080, IP, function() {
-  //   console.log('Connected');
-  // });
-
-  // client.on('data', function(data) {
-  //   console.log('Client received: ' + data);
-  // });
-
-  // client.on('close', function() {
-  //   console.log('Connection closed');
-  // });
-
-  // client.on('error', function(err) {
-  //   console.log(err);
-  // });
   res.redirect('/amigo');
 });
 
@@ -169,15 +155,14 @@ app.get('/callback',
   passport.authenticate('spotify', { failureRedirect: '/login' }),
   function(req, res) {
 
-    http.listen(8080, function(){
-    });
-
     network.get_private_ip(function(err, ip) {
       if (err) {
         console.log(err)
       } else {
         IP = ip; 
       }
+
+      http.listen(8080, function(){});
       res.redirect('/hostIndex');
     });
 });
