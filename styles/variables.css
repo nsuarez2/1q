@@ -1,0 +1,37 @@
+:root {
+	--brand-purple: #8660b4;
+	--brand-purple-dark: #2f1f42;
+
+	--gray-darkest:          #233137;
+	--gray-darker:           #3f5167;
+	--gray-normal:           #556473;
+	--gray-light:            #7a8491;
+	--gray-lighter:          #c4cdda;
+	--gray-lightest:         #e6edf4;
+}
+
+@font-face {
+	font-family: timeBurner;
+	src: url("./timeburnernormal.ttf");
+}
+@font-face {
+	font-family: timeBurner;
+	font-weight: bold;
+	src: url("./timeburnerbold.ttf");
+}
+
+@font-face {
+	font-family: comfortaa;
+	src: url("./Comfortaa-Regular.ttf");
+}
+@font-face {
+	font-family: comfortaa;
+	font-weight: bold;
+	src: url("./Comfortaa-Bold.ttf");
+}
+@font-face {
+	font-family: comfortaa;
+	src: url("./Comfortaa-Regular.ttf");
+}
+
+

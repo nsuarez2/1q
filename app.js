@@ -54,7 +54,7 @@ passport.deserializeUser(function(obj, done) {
 passport.use(new SpotifyStrategy({
   clientID: appKey,
   clientSecret: appSecret,
-  callbackURL: 'http://localhost:6969/callback'
+  callbackURL: '//localhost:6969/callback'
   },
   function(accessToken, refreshToken, profile, done) {
     // asynchronous verification, for effect...
@@ -85,7 +85,7 @@ app.use(session({ secret: 'keyboard cat' }));
 app.use(passport.initialize());
 app.use(passport.session());
 
-//app.use(express.static(__dirname + '/templates'));
+app.use(express.static(__dirname + '/styles'));
 
 app.engine('html', consolidate.swig);
 
