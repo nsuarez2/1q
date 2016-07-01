@@ -143,6 +143,16 @@ app.get('/callback',
       });
       socket.on('data', function(data) {
         console.log('Server recieved: ' + data);
+        if(String(data).match(/^spotify:track:\w*$/)) {
+          var trackid = String(data).replace(/^spotify:track:(.*)$/, '$1');
+          spotifyApi.getTrack(trackid)
+            .then(function(trackData) {
+              console.log('server track data');
+			  console.log(trackData);
+            });
+        } else {
+          console.log('Malformed data recieved');
+        }
       });
     });
 
