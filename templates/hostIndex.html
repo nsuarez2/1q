@@ -4,12 +4,18 @@
 	<div id="host">
 		<h1>Fuck you {{ user.username }}.</h1>
 		<p>http://localhost:6969/join/{{ip}}</p>
-		{% if msg %}
-		<p>{{ msg }}</p>
-		{% endif %}
+		<p id='message'></p>
 		<div class="searchbox">
 			<input type="text" ng-model="query" ng-change="loadsearch()" ng-keyup="loadsearch()" placeholder="Search..." />
 		</div>
 		<iframe src="https://embed.spotify.com/?uri=spotify:track:32lm3769IRfcnrQV11LO4E&theme=white&view=coverart" width="300" height="380" frameborder="0" allowtransparency="true"></iframe>
 	</div>
+	<script>
+		var socket = io.connect('http://localhost:8080');
+
+    socket.on('newTrack', function(data) {
+      $('#message').html(data.name);
+    });
+
+	</script>
 {% endblock %}

@@ -11,7 +11,9 @@ var express = require('express'),
     cheerio = require('cheerio'),
     $ = require('jquery'),
     SpotifyWebApi = require('spotify-web-api-node'),
-    request = require('request');
+    app = require('express')(),
+    http = require('http').Server(app),
+    io = require('socket.io')(http);
 
 var consolidate = require('consolidate');
 
@@ -20,6 +22,8 @@ var appSecret = 'f19da400224c4f968acaf580111f534e';
 var server;
 var client;
 var IP;
+var msg ='';
+var queue = [];
 
 var spotifyApi = new SpotifyWebApi({
   clientId : appKey,
@@ -81,7 +85,7 @@ app.use(session({ secret: 'keyboard cat' }));
 app.use(passport.initialize());
 app.use(passport.session());
 
-//app.use(express.static(__dirname + '/public'));
+//app.use(express.static(__dirname + '/templates'));
 
 app.engine('html', consolidate.swig);
 
@@ -90,22 +94,26 @@ app.get('/', function(req, res){
 });
 
 app.get('/join/:ip', function(req, res) {
-  client = new net.Socket();
-  client.connect(8080, IP, function() {
-    console.log('Connected');
-  });
 
-  client.on('data', function(data) {
-    console.log('Client received: ' + data);
-  });
+  http.listen(8080, function(){
 
-  client.on('close', function() {
-    console.log('Connection closed');
   });
+  // client = new net.Socket();
+  // client.connect(8080, IP, function() {
+  //   console.log('Connected');
+  // });
 
-  client.on('error', function(err) {
-    console.log(err);
-  });
+  // client.on('data', function(data) {
+  //   console.log('Client received: ' + data);
+  // });
+
+  // client.on('close', function() {
+  //   console.log('Connection closed');
+  // });
+
+  // client.on('error', function(err) {
+  //   console.log(err);
+  // });
   res.redirect('/amigo');
 });
 
@@ -114,7 +122,7 @@ app.get('/account', ensureAuthenticated, function(req, res){
 });
 
 app.get('/hostIndex', function(req, res) {
-  res.render('hostIndex.html', { user: req.user, ip: IP});
+  res.render('hostIndex.html', { user: req.user, ip: IP, msg: msg});
 });
 
 app.get('/amigo', function(req, res) {
@@ -133,6 +141,25 @@ app.get('/auth/spotify',
 // function will not be called.
 });
 
+io.on('connection', function(socket){
+
+  socket.on('sendTrack', function(msg){
+
+     var data = String(msg.data);
+
+    if (data.match(/^spotify:track:\w*$/)) {
+      var trackid = data.replace(/^spotify:track:(.*)$/, '$1');
+      spotifyApi.getTrack(trackid)
+        .then(function(trackData) {
+          io.sockets.emit('newTrack', trackData.body);
+        });
+    } else {
+      console.log('Malformed data recieved');
+    }
+  });
+});
+
+
 // GET /auth/spotify/callback
 //   Use passport.authenticate() as route middleware to authenticate the
 //   request. If authentication fails, the user will be redirected back to the
@@ -141,36 +168,8 @@ app.get('/auth/spotify',
 app.get('/callback',
   passport.authenticate('spotify', { failureRedirect: '/login' }),
   function(req, res) {
-    server = net.createServer(function(socket) {
-      socket.pipe(socket);
-      socket.on('error', function(err) {
-        console.log(err)
-      });
-      socket.on('data', function(data) {
-        console.log('Server recieved: ' + data);
-<<<<<<< Updated upstream
-        if(String(data).match(/^spotify:track:\w*$/)) {
-          var trackid = String(data).replace(/^spotify:track:(.*)$/, '$1');
-          spotifyApi.getTrack(trackid)
-            .then(function(trackData) {
-              console.log('server track data');
-			  console.log(trackData);
-            });
-        } else {
-          console.log('Malformed data recieved');
-        }
-=======
-        request.post('hostIndex.html', { user: req.user, ip: IP, msg: data},
-          function (error, response, body) {
-            if (error) {
-              console.log(error);
-            }
-            if (!error && response.statusCode == 200) {
-              console.log(body)
-            }
-        });
->>>>>>> Stashed changes
-      });
+
+    http.listen(8080, function(){
     });
 
     network.get_private_ip(function(err, ip) {
@@ -179,7 +178,6 @@ app.get('/callback',
       } else {
         IP = ip; 
       }
-      server.listen(8080, IP);
       res.redirect('/hostIndex');
     });
 });
@@ -189,22 +187,16 @@ app.get('/logout', function(req, res) {
   res.redirect('/');
 });
 
-app.post('/sendTrack', function(req, res) {
-  var input = req.body.amigo.input;
-  console.log(input);
-  client.write(input);
-});
-
 app.post('/searchTrack', function(req, res) {
-  console.log('Searched');
+  //console.log('Searched');
   var search = req.body.amigo.search;
-  console.log(search);
+  //console.log(search);
   spotifyApi.searchTracks(search)
 	.then(function(data) {
-		console.log('search for ' + search, data.body);
-		console.log(data.body.tracks.items[0]);
+		//console.log('search for ' + search, data.body);
+		//console.log(data.body.tracks.items[0]);
 		var topTrack = data.body.tracks.items[0];
-		console.log(topTrack.album.images);
+		//console.log(topTrack.album.images);
 		res.render('searchResults.html', 
 			{
 				user: req.user, 
@@ -227,4 +219,4 @@ console.log('Listening on 6969');
 function ensureAuthenticated(req, res, next) {
   if (req.isAuthenticated()) { return next(); }
   res.redirect('/login');
-}
+};

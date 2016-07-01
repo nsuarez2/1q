@@ -10,6 +10,8 @@
 {% endfor %}
 
 <script>
+var socket = io.connect('http://localhost:8080');
+
   $(".trackEntry").mouseenter(function() {
   $(this).css("background-color", "yellow");
 });
@@ -20,7 +22,7 @@ $(".trackEntry").click(function() {
 	var uri = $( this ).attr("uri");
 	console.log(uri);
   $(this).css("background-color", "green").fadeOut( 1000 );
-	$.post('/sendTrack', {amigo: {input: uri }});
+	socket.emit('sendTrack', {data: uri});
 	window.location.pathname = "/amigo";
 });
 </script>
