@@ -20,6 +20,7 @@
 		console.log('tried to send');
 		socket.on('providePlaylist', function(data) {
 		  console.log('recieved playlist');
+		  $("#amigo_playlist").empty();
 		  for(var i = 0; i < data.length; i++) {
 			$("#amigo_playlist").append("<p>" + data[i].name + "</p>");
 		  }
