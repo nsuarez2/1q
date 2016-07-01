@@ -5,12 +5,14 @@ var express = require('express'),
     session = require('express-session'),
     passport = require('passport'),
     swig = require('swig'),
-    SpotifyStrategy = require('./index').Strategy;
+    SpotifyStrategy = require('./index').Strategy,
+    net = require('net');
 
 var consolidate = require('consolidate');
 
 var appKey = '20535ac1ce784763a79e16c952b9cfe8';
 var appSecret = 'f19da400224c4f968acaf580111f534e';
+var server;
 
 // Passport session setup.
 //   To support persistent login sessions, Passport needs to be able to
@@ -99,6 +101,20 @@ app.get('/auth/spotify',
 app.get('/callback',
   passport.authenticate('spotify', { failureRedirect: '/login' }),
   function(req, res) {
+    server = net.createServer(function(socket) {
+      socket.write('Echo server\r\n');
+      socket.pipe(socket);
+      socket.on('error', function(err) {
+        console.log(err)
+      });
+      socket.on('data', function(data) {
+        console.log('Recieved: ' + data);
+      });
+    });
+
+    console.log('Auth accepted, listening on 8080')
+    server.listen(8080, 'localhost');
+    
     res.redirect('/');
   });
 

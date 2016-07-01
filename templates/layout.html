@@ -4,12 +4,7 @@
 		<title>1q</title>
 	</head>
 	<body>
-		{% if !user %}
-			<p>
-			<a href="/">Home</a> |
-			<a href="/login">Log In</a>
-			</p>
-		{% else %}
+		{% if user %}
 			<p>
 			<a href="/">Home</a> |
 			<a href="/account">Account</a> |
