@@ -93,6 +93,7 @@ app.get('/', function(req, res){
   res.redirect('/auth/spotify');
 });
 
+
 app.get('/join/:ip', function(req, res) {
 
   IP = req.params.ip;
