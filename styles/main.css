@@ -96,6 +96,11 @@ a {
 	margin: 0;
 }
 
+.trackEntry {
+	text-align: left;
+}
 
-
-
+.searchResultsContainer{
+	margin: 0 auto;
+	width: 600px;
+}
