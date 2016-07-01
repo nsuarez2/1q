@@ -8,14 +8,22 @@
 		<div class="searchbox">
 			<input type="text" ng-model="query" ng-change="loadsearch()" ng-keyup="loadsearch()" placeholder="Search..." />
 		</div>
-		<iframe id='player' src="https://embed.spotify.com/?uri=spotify:track:32lm3769IRfcnrQV11LO4E&theme=white&view=coverart" width="300" height="380" frameborder="0" allowtransparency="true" autoplay></iframe>
+		<iframe id='player' src="https://embed.spotify.com/?uri=spotify:track:7GhIk7Il098yCjg4BQjzvb&theme=white&view=coverart" width="300" height="380" frameborder="0" allowtransparency="true" autoplay></iframe>
 	</div>
 	<script>
 		var socket = io.connect('http://{{ip}}:8080');
     socket.on('newTrack', function(data) {
-      var trackID = data.uri;
-      $('#player').attr("src", "https://embed.spotify.com/?uri=" + trackID + "&theme=white&view=coverart");
-      $(".playlist").append("<p>" + data.name + "</p>").hide().slideDown("slow");
+	  var url = 'https://embed.spotify.com/?uri=spotify:track:7GhIk7Il098yCjg4BQjzvb&theme=white&view=coverart';
+	  if(data.length > 0) {
+		url = 'https://embed.spotify.com/?uri=spotify:trackset:1Q:';
+		url += String(data[0].uri).replace(/spotify:track:(.*)/, '$1');
+		for (var i = 1; i < data.length; i++) {
+		  url += ',' + String(data[i].uri).replace(/spotify:track:(.*)/, '$1');
+		}
+		url += '&theme=white&view=coverart';
+	  }
+      $('#player').attr("src", url);
+      $(".playlist").append("<p>" + data[data.length-1].name + "</p>").hide().slideDown("slow");
     });
 
 	</script>
