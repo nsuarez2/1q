@@ -73,6 +73,10 @@ app.get('/', function(req, res){
   res.render('index.html', { user: req.user });
 });
 
+app.get('/join', function(req, res) {
+  res.render('join.html');
+});
+
 app.get('/account', ensureAuthenticated, function(req, res){
   res.render('account.html', { user: req.user });
 });
@@ -116,7 +120,7 @@ app.get('/callback',
     server.listen(8080, 'localhost');
     
     res.redirect('/');
-  });
+});
 
 app.get('/logout', function(req, res){
   req.logout();
