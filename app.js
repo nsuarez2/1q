@@ -6,19 +6,21 @@ var express = require('express'),
     passport = require('passport'),
     swig = require('swig'),
     SpotifyStrategy = require('./index').Strategy,
-    net = require('net');
+    net = require('net'),
+    http = require('http');
 
 var consolidate = require('consolidate');
 
 var appKey = '20535ac1ce784763a79e16c952b9cfe8';
 var appSecret = 'f19da400224c4f968acaf580111f534e';
 var server;
+var IP;
 
 // Passport session setup.
 //   To support persistent login sessions, Passport needs to be able to
 //   serialize users into and deserialize users out of the session. Typically,
 //   this will be as simple as storing the user ID when serializing, and finding
-//   the user by ID when deserializing. However, since this example does not
+//   the user by ID when deserializing. Howevr, since this example does not
 //   have a database of user records, the complete spotify profile is serialized
 //   and deserialized.
 passport.serializeUser(function(user, done) {
@@ -37,7 +39,7 @@ passport.deserializeUser(function(obj, done) {
 passport.use(new SpotifyStrategy({
   clientID: appKey,
   clientSecret: appSecret,
-  callbackURL: 'http://localhost:8888/callback'
+  callbackURL: 'http://localhost:6969/callback'
   },
   function(accessToken, refreshToken, profile, done) {
     // asynchronous verification, for effect...
@@ -65,24 +67,42 @@ app.use(session({ secret: 'keyboard cat' }));
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use(express.static(__dirname + '/public'));
+//app.use(express.static(__dirname + '/public'));
 
 app.engine('html', consolidate.swig);
 
 app.get('/', function(req, res){
-  res.render('index.html', { user: req.user });
+  res.render('login.html', { user: req.user });
 });
 
-app.get('/join', function(req, res) {
-  res.render('join.html');
+app.get('/join/:ip', function(req, res) {
+  var hostIP = req.params.ip;
+  var client = new net.Socket();
+  client.connect(8080, 'localhost', function() {
+    console.log('Connected');
+    client.write('Hello, server! Love, Client.');
+  });
+
+  client.on('data', function(data) {
+    console.log('Received: ' + data);
+  });
+
+  client.on('close', function() {
+    console.log('Connection closed');
+  });
+
+  client.on('error', function(err) {
+    console.log(err);
+  });
+  res.render('amigoIndex.html', { ip: hostIP});
 });
 
 app.get('/account', ensureAuthenticated, function(req, res){
   res.render('account.html', { user: req.user });
 });
 
-app.get('/login', function(req, res){
-  res.render('login.html', { user: req.user });
+app.get('/hostIndex', function(req, res) {
+  res.render('hostIndex.html', { user: req.user, ip: IP });
 });
 
 // GET /auth/spotify
@@ -116,10 +136,14 @@ app.get('/callback',
       });
     });
 
-    console.log('Auth accepted, listening on 8080')
     server.listen(8080, 'localhost');
     
-    res.redirect('/');
+    http.get({'host': 'api.ipify.org', 'port': 80, 'path': '/'}, function(resp) {
+      resp.on('data', function(ip) {
+        IP = ip.toString();
+        res.redirect('/hostIndex');
+      });
+    });
 });
 
 app.get('/logout', function(req, res){
@@ -127,8 +151,8 @@ app.get('/logout', function(req, res){
   res.redirect('/');
 });
 
-app.listen(8888);
-console.log('Listening on 8888');
+app.listen(6969);
+console.log('Listening on 6969');
 
 // Simple route middleware to ensure user is authenticated.
 //   Use this route middleware on any resource that needs to be protected.  If
