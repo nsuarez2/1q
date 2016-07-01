@@ -4,10 +4,8 @@
 	<div id="host">
 		<h1>Fuck you {{ user.username }}.</h1>
 		<a href="http://localhost:6969/join/{{ip}}" target="_blank">http://localhost:6969/join/{{ip}}</a>
-                <div class="playlist"></div>
-		<div class="searchbox">
-			<input type="text" ng-model="query" ng-change="loadsearch()" ng-keyup="loadsearch()" placeholder="Search..." />
-		</div>
+<button id="buttonD">delete</button>         
+		<div class="playlist"></div>
 		<iframe id='player' src="https://embed.spotify.com/?uri=spotify:track:7GhIk7Il098yCjg4BQjzvb&theme=white&view=coverart" width="300" height="380" frameborder="0" allowtransparency="true" autoplay></iframe>
 	</div>
 	<script>
@@ -25,6 +23,14 @@
       $('#player').attr("src", url);
       $(".playlist").append("<p>" + data[data.length-1].name + "</p>").hide().slideDown("slow");
     });
-
+$("#buttonD").click(function() {
+url = 'https://embed.spotify.com/?uri=spotify:trackset:1Q:';
+		url += String(data[0].uri).replace(/spotify:track:(.*)/, '$1');
+		for (var i = 2; i < data.length; i++) {
+		  url += ',' + String(data[i].uri).replace(/spotify:track:(.*)/, '$1');
+		}
+		url += '&theme=white&view=coverart';
+		      $('#player').attr("src", url);
+});
 	</script>
 {% endblock %}

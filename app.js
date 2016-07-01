@@ -134,7 +134,12 @@ var data_dict;
 io.on('connection', function(socket){
 
   socket.on('sendTrack', function(msg){
-      parse_data(String(msg.data));
+    parse_data(String(msg.data));
+  });
+  
+  socket.on('getPlaylist', function(msg){
+	console.log('trying to send playlist');
+	io.sockets.emit('providePlaylist', playlist);
   });
 });
 
