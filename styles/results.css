@@ -3,6 +3,7 @@
 	border-bottom: solid var(--gray-light) 0.5px;
 	height: 64px;
 	vertical-align: middle;
+	display: flex;
 }
 
 .trackEntry:hover {
@@ -22,6 +23,7 @@
 }
 
 .right {
+	margin-left: 5px;
 	width: 80%;
 	display: inline-block;
 	height: 63px;

@@ -4,17 +4,17 @@
 <div class="searchResultsContainer">
 {% for track in tracks %}
 	<div class="trackEntry" uri={{ track.uri }}>
-		<div class="left">
+		<nav class="left">
 			<img src={{ track.album.images[2].url }}>
-		</div>
-		<div class="right">
-			<section class="top">
+		</nav>
+		<section class="right">
+			<div class="top">
 				<p>{{ track.name }}</p>
-			</section>
-			<section class="bottom">
+			</div>
+			<div class="bottom">
 				<p>{{ track.artists[0].name }}</p>
-			</section> 
-		</div>
+			</div> 
+		</section>
 	</div>
 {% endfor %}
 </div>
