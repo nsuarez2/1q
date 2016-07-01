@@ -8,7 +8,8 @@ var express = require('express'),
     SpotifyStrategy = require('./index').Strategy,
     net = require('net'),
     network = require('network'),
-    cheerio = require('cheerio');
+    cheerio = require('cheerio'),
+	SpotifyWebApi = require('spotify-web-api-node');
 
 var consolidate = require('consolidate');
 
@@ -17,6 +18,12 @@ var appSecret = 'f19da400224c4f968acaf580111f534e';
 var server;
 var client;
 var IP;
+
+var spotifyApi = new SpotifyWebApi({
+  clientId : appKey,
+  clientSecret : appSecret,
+  redirectUri : 'localhost:6969/callback'
+});
 
 // Passport session setup.
 //   To support persistent login sessions, Passport needs to be able to
@@ -162,6 +169,22 @@ app.post('/sendTrack', function(req, res) {
   console.log(input);
   client.write(input);
 });
+
+app.post('/searchTrack', function(req, res) {
+  console.log('Searched');
+  var search = req.body.amigo.search;
+  console.log(search);
+  spotifyApi.searchTracks(search)
+	.then(function(data) {
+		console.log('search for ' + search, data.body);
+		console.log(data.body.tracks.items[0]);
+		var topTrack = data.body.tracks.items[0];
+		client.write(topTrack.uri);
+	}, function(err) {
+		console.error(err);
+	});
+});
+
 app.listen(6969);
 console.log('Listening on 6969');
 
