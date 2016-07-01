@@ -142,7 +142,6 @@ io.on('connection', function(socket){
   });
   
   socket.on('getPlaylist', function(msg){
-	console.log('trying to send playlist');
 	io.sockets.emit('providePlaylist', playlist);
   });
 });
@@ -187,15 +186,10 @@ app.get('/logout', function(req, res) {
 });
 
 app.post('/searchTrack', function(req, res) {
-  //console.log('Searched');
   var search = req.body.amigo.search;
-  //console.log(search);
   spotifyApi.searchTracks(search, {limit: 50})
 	.then(function(data) {
-		//console.log('search for ' + search, data.body);
-		//console.log(data.body.tracks.items[0]);
 		var topTrack = data.body.tracks.items[0];
-		//console.log(topTrack.album.images);
 		res.render('searchResults.html', 
 			{
 				user: req.user, 
