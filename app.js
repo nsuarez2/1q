@@ -95,7 +95,7 @@ app.get('/join/:ip', function(req, res) {
   });
 
   client.on('data', function(data) {
-    console.log('Received: ' + data);
+    console.log('Client received: ' + data);
   });
 
   client.on('close', function() {
@@ -105,7 +105,7 @@ app.get('/join/:ip', function(req, res) {
   client.on('error', function(err) {
     console.log(err);
   });
-    res.render('amigoIndex.html', { ip: IP});
+  res.render('amigoIndex.html', { ip: IP});
 });
 
 app.get('/account', ensureAuthenticated, function(req, res){
@@ -142,7 +142,7 @@ app.get('/callback',
         console.log(err)
       });
       socket.on('data', function(data) {
-        console.log('Recieved: ' + data);
+        console.log('Server recieved: ' + data);
       });
     });
 
@@ -163,8 +163,6 @@ app.get('/logout', function(req, res) {
 });
 
 app.post('/sendTrack', function(req, res) {
-  console.log('I AM CLICKEDDDDDDDDD');
-  //var $trackIDinput = $("track-send-input");
   var input = req.body.amigo.input;
   console.log(input);
   client.write(input);
