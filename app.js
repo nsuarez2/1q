@@ -144,7 +144,7 @@ function parse_data(data) {
       spotifyApi.getTrack(trackid)
         .then(function(trackData) {
             playlist.push(trackData.body);
-            io.sockets.emit('newTrack', trackData.body);
+            io.sockets.emit('newTrack', playlist);
         });
     } else {
       console.log('Malformed data recieved');

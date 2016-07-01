@@ -17,7 +17,7 @@
     socket.on('newTrack', function(data) {
       var trackID = data.uri;
       $('#player').attr("src", "https://embed.spotify.com/?uri=" + trackID + "&theme=white&view=coverart");
-      $(".playlist").append("<p id=\"" + queue_top + "\">" + data.name + "</p>");
+      $(".playlist").append("<p id=\"" + queue_top + "\">" + data[queue_top].name + "</p>");
                 $("#"+queue_top).hide().slideDown("slow");
                 queue_top++; 
     });
