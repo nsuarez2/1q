@@ -11,7 +11,7 @@
 			<input id="track-search-input" type="text" name="amigo[search]"/>
 			<input type="submit" value="piss into the wind"/>
 		</form>
-		<div id="amigo_playlist"></div>
+		<div class="amigoPlaylist"></div>
 	</div>
 	
 	<script>
@@ -20,9 +20,23 @@
 		console.log('tried to send');
 		socket.on('providePlaylist', function(data) {
 		  console.log('recieved playlist');
-		  $("#amigo_playlist").empty();
+		  $(".amigoPlaylist").empty();
 		  for(var i = 0; i < data.length; i++) {
-			$("#amigo_playlist").append("<p>" + data[i].name + "</p>");
+                 var songEntry = " \
+                  <div class='trackEntry' uri=" + data[i].uri + "> \
+		<div class='left'> \
+			<img src=" + data[i].album.images[2].url + "> \
+		</div> \
+		<div class='right'> \
+			<section class='top'> \
+				<p>" + data[i].name + "</p> \
+			</section> \
+			<section class='bottom'> \
+				<p>" + data[i].artists[0].name + "</p> \
+			</section> \
+		</div> \
+	</div>"
+			$(".amigoPlaylist").append(songEntry);
 		  }
 		});
 	</script>

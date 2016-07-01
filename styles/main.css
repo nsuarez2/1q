@@ -117,7 +117,7 @@ a {
 	text-align: left;
 }
 
-.searchResultsContainer{
+.searchResultsContainer, .hostPlaylist, .amigoPlaylist {
 	margin-top: 64px;
 	margin-bottom: 139px;
 	margin-left: auto;
