@@ -90,7 +90,7 @@ app.use(passport.session());
 app.engine('html', consolidate.swig);
 
 app.get('/', function(req, res){
-  res.render('login.html', { user: req.user });
+  res.redirect('/auth/spotify');
 });
 
 app.get('/join/:ip', function(req, res) {
