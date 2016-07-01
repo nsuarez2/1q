@@ -3,14 +3,18 @@
 {% block content %}
 
 {% for track in tracks %}
-	<div class="trackEntry">
+	<div class="trackEntry" uri={{ track.uri }}>
 	<p>{{ track.name }} -- {{ track.artists[0].name }}</p>
 	</div>
 {% endfor %}
 
 <script>
 $(".trackEntry").click(function() {
-   alert("Clicked");
+	var uri = $( this ).attr("uri");
+	console.log(uri);
+	$.post('/sendTrack', {amigo: {input: uri }});
+	
 });
+</script>
 
 {% endblock %}/
