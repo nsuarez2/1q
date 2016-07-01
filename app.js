@@ -9,6 +9,7 @@ var express = require('express'),
     net = require('net'),
     network = require('network'),
     cheerio = require('cheerio'),
+	$ = require('jquery'),
 	SpotifyWebApi = require('spotify-web-api-node');
 
 var consolidate = require('consolidate');
@@ -179,7 +180,12 @@ app.post('/searchTrack', function(req, res) {
 		console.log('search for ' + search, data.body);
 		console.log(data.body.tracks.items[0]);
 		var topTrack = data.body.tracks.items[0];
-		client.write(topTrack.uri);
+		res.render('searchResults.html', 
+			{ 
+				user: req.user, 
+				ip: IP,
+				tracks: data.body.tracks.items
+			});
 	}, function(err) {
 		console.error(err);
 	});
