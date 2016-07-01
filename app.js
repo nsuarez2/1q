@@ -127,24 +127,28 @@ app.get('/auth/spotify',
 // function will not be called.
 });
 
+var playlist = [];
+var data_dict;
+
 io.on('connection', function(socket){
 
   socket.on('sendTrack', function(msg){
+      parse_data(String(msg.data));
+  });
+});
 
-     var data = String(msg.data);
-
+function parse_data(data) {
     if (data.match(/^spotify:track:\w*$/)) {
       var trackid = data.replace(/^spotify:track:(.*)$/, '$1');
       spotifyApi.getTrack(trackid)
         .then(function(trackData) {
-          io.sockets.emit('newTrack', trackData.body);
+            playlist.push(trackData.body);
+            io.sockets.emit('newTrack', trackData.body);
         });
     } else {
       console.log('Malformed data recieved');
     }
-  });
-});
-
+}
 
 // GET /auth/spotify/callback
 //   Use passport.authenticate() as route middleware to authenticate the
