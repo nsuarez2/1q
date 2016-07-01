@@ -148,7 +148,6 @@ app.get('/callback',
       });
       socket.on('data', function(data) {
         console.log('Server recieved: ' + data);
-<<<<<<< Updated upstream
         if(String(data).match(/^spotify:track:\w*$/)) {
           var trackid = String(data).replace(/^spotify:track:(.*)$/, '$1');
           spotifyApi.getTrack(trackid)
@@ -159,17 +158,6 @@ app.get('/callback',
         } else {
           console.log('Malformed data recieved');
         }
-=======
-        request.post('hostIndex.html', { user: req.user, ip: IP, msg: data},
-          function (error, response, body) {
-            if (error) {
-              console.log(error);
-            }
-            if (!error && response.statusCode == 200) {
-              console.log(body)
-            }
-        });
->>>>>>> Stashed changes
       });
     });
 
