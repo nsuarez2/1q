@@ -126,7 +126,7 @@ app.get('/amigo', function(req, res) {
 //   the user to spotify.com. After authorization, spotify will redirect the user
 //   back to this application at /auth/spotify/callback
 app.get('/auth/spotify',
-  passport.authenticate('spotify', {scope: ['user-read-email', 'user-read-private'], showDialog: true}),
+  passport.authenticate('spotify', {scope: ['user-read-email', 'user-read-private'], showDialog: false}),
   function(req, res){
 // The request will be redirected to spotify for authentication, so this
 // function will not be called.
@@ -142,7 +142,7 @@ io.on('connection', function(socket){
   });
   
   socket.on('getPlaylist', function(msg){
-  io.sockets.emit('providePlaylist', playlist);
+    io.sockets.emit('providePlaylist', playlist);
   });
 });
 
