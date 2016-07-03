@@ -142,7 +142,7 @@ io.on('connection', function(socket){
   });
   
   socket.on('getPlaylist', function(msg){
-	io.sockets.emit('providePlaylist', playlist);
+  io.sockets.emit('providePlaylist', playlist);
   });
 });
 
@@ -188,17 +188,17 @@ app.get('/logout', function(req, res) {
 app.post('/searchTrack', function(req, res) {
   var search = req.body.amigo.search;
   spotifyApi.searchTracks(search, {limit: 50})
-	.then(function(data) {
-		var topTrack = data.body.tracks.items[0];
-		res.render('searchResults.html', 
-			{
-				user: req.user, 
-				ip: IP,
-				tracks: data.body.tracks.items
-			});
-	}, function(err) {
-		console.error(err);
-	});
+  .then(function(data) {
+    var topTrack = data.body.tracks.items[0];
+    res.render('searchResults.html', 
+      {
+        user: req.user, 
+        ip: IP,
+        tracks: data.body.tracks.items
+      });
+  }, function(err) {
+    console.error(err);
+  });
 });
 
 app.listen(6969);
