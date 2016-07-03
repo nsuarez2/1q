@@ -123,7 +123,7 @@ a {
 	margin-left: auto;
 	margin-right: auto;
 	width: 600px;
-	border: solid var(--gray-light) 0.5px;
+	border: none;
 }
 
 input[type="text"].line {
