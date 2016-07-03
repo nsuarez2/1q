@@ -187,6 +187,9 @@ app.get('/logout', function(req, res) {
 
 app.post('/searchTrack', function(req, res) {
   var search = req.body.amigo.search;
+  if(!search) {
+    search = "SexyBack";
+  }
   spotifyApi.searchTracks(search, {limit: 50})
   .then(function(data) {
     var topTrack = data.body.tracks.items[0];
