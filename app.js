@@ -72,6 +72,7 @@ passport.use(new SpotifyStrategy({
 var app = express();
 
 // configure Express
+app.set('port', (process.env.PORT || 5000));
 app.set('views', __dirname + '/templates');
 app.set('view engine', 'ejs');
 
@@ -211,8 +212,9 @@ app.post('/searchTrack', function(req, res) {
   });
 });
 
-app.listen(6969);
-console.log('Listening on 6969');
+app.listen(app.get('port'), function() {
+  console.log('Node app is running on port', app.get('port'));
+});
 
 // Simple route middleware to ensure user is authenticated.
 //   Use this route middleware on any resource that needs to be protected.  If
