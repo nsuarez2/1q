@@ -28,7 +28,7 @@ var queue = [];
 var spotifyApi = new SpotifyWebApi({
   clientId : appKey,
   clientSecret : appSecret,
-  redirectUri : 'localhost:5000/callback'
+  redirectUri : 'localhost:6969/callback'
 });
 
 // Passport session setup.
@@ -54,7 +54,7 @@ passport.deserializeUser(function(obj, done) {
 passport.use(new SpotifyStrategy({
   clientID: appKey,
   clientSecret: appSecret,
-  callbackURL: '//localhost:5000/callback'
+  callbackURL: '//localhost:6969/callback'
   },
   function(accessToken, refreshToken, profile, done) {
     // asynchronous verification, for effect...
@@ -70,7 +70,7 @@ passport.use(new SpotifyStrategy({
 var app = express();
 
 // configure Express
-app.set('port', (process.env.PORT || 5000));
+app.set('port', (process.env.PORT || 6969));
 app.set('views', __dirname + '/templates');
 app.set('view engine', 'ejs');
 
@@ -91,7 +91,7 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use(express.static(__dirname + './'));
+app.use(express.static(__dirname + '/styles'));
 
 app.engine('html', consolidate.swig);
 
