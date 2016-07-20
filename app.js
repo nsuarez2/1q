@@ -1,3 +1,5 @@
+'use strict';
+
 var express = require('express'),
     bodyParser = require('body-parser'),
     cookieParser = require('cookie-parser'),
@@ -11,7 +13,7 @@ var express = require('express'),
     cheerio = require('cheerio'),
     $ = require('jquery'),
     SpotifyWebApi = require('spotify-web-api-node'),
-    app = require('express')(),
+    //app = require('express')(),
     http = require('http').Server(app),
     io = require('socket.io')(http);
 
@@ -28,7 +30,7 @@ var queue = [];
 var spotifyApi = new SpotifyWebApi({
   clientId : appKey,
   clientSecret : appSecret,
-  redirectUri : 'localhost:6969/callback'
+  redirectUri : 'https://onequeue-1378.appspot.com/callback'
 });
 
 // Passport session setup.
@@ -54,7 +56,7 @@ passport.deserializeUser(function(obj, done) {
 passport.use(new SpotifyStrategy({
   clientID: appKey,
   clientSecret: appSecret,
-  callbackURL: '//localhost:6969/callback'
+  callbackURL: 'https://onequeue-1378.appspot.com/callback'
   },
   function(accessToken, refreshToken, profile, done) {
     // asynchronous verification, for effect...
@@ -79,7 +81,12 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(bodyParser.json());
 app.use(methodOverride());
-app.use(session({ secret: 'keyboard cat' }));
+app.use(session({ 
+  secret: 'keyboard cat',
+  resave: false,
+  saveUninitialized: true,
+  cookie: { secure: true }
+}));
 // Initialize Passport!  Also use passport.session() middleware, to support
 // persistent login sessions (recommended).
 app.use(passport.initialize());
