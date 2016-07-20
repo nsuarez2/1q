@@ -28,7 +28,7 @@ var queue = [];
 var spotifyApi = new SpotifyWebApi({
   clientId : appKey,
   clientSecret : appSecret,
-  redirectUri : 'https://oneq.us/callback'
+  redirectUri : 'localhost:5000/callback'
 });
 
 // Passport session setup.
@@ -54,7 +54,7 @@ passport.deserializeUser(function(obj, done) {
 passport.use(new SpotifyStrategy({
   clientID: appKey,
   clientSecret: appSecret,
-  callbackURL: 'https://oneq.us/callback'
+  callbackURL: '//localhost:5000/callback'
   },
   function(accessToken, refreshToken, profile, done) {
     // asynchronous verification, for effect...
