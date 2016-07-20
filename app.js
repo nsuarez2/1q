@@ -1,5 +1,3 @@
-'use strict';
-
 var express = require('express'),
     bodyParser = require('body-parser'),
     cookieParser = require('cookie-parser'),
@@ -30,7 +28,7 @@ var queue = [];
 var spotifyApi = new SpotifyWebApi({
   clientId : appKey,
   clientSecret : appSecret,
-  redirectUri : 'https://onequeue.herokuapp.com/callback'
+  redirectUri : 'onequeue.herokuapp.com/callback'
 });
 
 // Passport session setup.
@@ -56,7 +54,7 @@ passport.deserializeUser(function(obj, done) {
 passport.use(new SpotifyStrategy({
   clientID: appKey,
   clientSecret: appSecret,
-  callbackURL: 'https://onequeue.herokuapp.com/callback'
+  callbackURL: '//onequeue.herokuapp.com/callback'
   },
   function(accessToken, refreshToken, profile, done) {
     // asynchronous verification, for effect...
@@ -93,7 +91,7 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use(express.static(__dirname + '/styles'));
+app.use(express.static(__dirname + './'));
 
 app.engine('html', consolidate.swig);
 
