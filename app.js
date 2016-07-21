@@ -28,6 +28,7 @@ var queue = [];
 var spotifyApi = new SpotifyWebApi({
   clientId : appKey,
   clientSecret : appSecret,
+  //redirectUri : 'localhost:6969/callback'
   redirectUri : 'https://onequeue.herokuapp.com/callback'
 });
 
@@ -54,6 +55,7 @@ passport.deserializeUser(function(obj, done) {
 passport.use(new SpotifyStrategy({
   clientID: appKey,
   clientSecret: appSecret,
+  //callbackURL: '//localhost:6969/callback'
   callbackURL: 'https://onequeue.herokuapp.com/callback'
   },
   function(accessToken, refreshToken, profile, done) {
@@ -91,7 +93,9 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use(express.static(__dirname + '/styles'));
+app.use(express.static('styles'));
+app.use(express.static('templates'));
+//app.use(express.static(__dirname + '/styles'));
 
 app.engine('html', consolidate.swig);
 
