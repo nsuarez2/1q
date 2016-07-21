@@ -94,7 +94,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use(express.static('styles'));
-app.use(express.static('templates'));
+//app.use(express.static('templates'));
 //app.use(express.static(__dirname + '/styles'));
 
 app.engine('html', consolidate.swig);
