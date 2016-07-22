@@ -140,7 +140,7 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use(favicon(__dirname + 'favicon.ico'));
+app.use(favicon(__dirname + '/favicon.ico'));
 
 app.use(express.static(__dirname + '/styles'));
 
