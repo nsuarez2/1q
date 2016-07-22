@@ -46,7 +46,7 @@ a {
   font-family: comfortaa;
   font-size: 150px;
   font-weight: 100;
-  color: var(--brand-purple);
+  color: #8660b4;
   margin-bottom: 10px;
 }
 
@@ -55,7 +55,7 @@ a {
 }
 
 .navbar {
-  background-color: var(--brand-purple);
+  background-color: #8660b4;
   height: 75px;
   width: 100%;
   position: fixed;
@@ -120,9 +120,9 @@ a {
 }
 
 .info-banner {
-  background-color: var(--brand-purple-dark);
+  background-color: #2f1f42;
   margin: 0 auto;
-  width: var(--player-width);
+  width: 640px;
   position: relative;
   top: -30px;
   height: 55px;
@@ -131,14 +131,14 @@ a {
 }
 
 .info-banner h1 {
-  color: var(--gray-lighter);
+  color: #c4cdda;
   height: 50px;
   padding-top: 13px;
 }
 
 .login {
   top: -75px;
-  background-color: var(--gray-darkest);
+  background-color: #233137;
 }
 .login p {
   font-size: 200px;
@@ -163,46 +163,46 @@ a {
 input[type="text"].line {
   width: 200px;
   border: 0;
-    border-bottom: 1px solid var(--gray-lightest);
-    color: @gray-normal;
-    font-weight: 300;
-    padding: 5px;
-    transition: all 0.25s;
-    text-align: center;
+  border-bottom: 1px solid #233137;
+  color: #556473;
+  font-weight: 300;
+  padding: 5px;
+  transition: all 0.25s;
+  text-align: center;
 }
 input[type="text"].line:hover {
   outline: 0;
-    border-bottom: 1px solid var(--brand-purple);
+  border-bottom: 1px solid #8660b4;
 }
 input[type="text"]:focus {
   outline: 0;
-    border-bottom: 1px solid var(--brand-purple);
+  border-bottom: 1px solid #8660b4;
 }
 input[type="text"]::-webkit-input-placeholder {
-    color: var(--gray-lighter);
-    font-weight: 400;
+  color: #c4cdda;
+  font-weight: 400;
 }
 #search-btn, #go-btn {
   background-color: transparent;
-    box-shadow: none;
-    text-shadow: none;
-    cursor: default;
-    font-size: 10px;
-    padding: 0.5rem 1rem;
-    text-transform: uppercase;
-    transition: all 100ms;
-    background: transparent;
-  border: 1px solid var(--brand-purple);
+  box-shadow: none;
+  text-shadow: none;
+  cursor: default;
+  font-size: 10px;
+  padding: 0.5rem 1rem;
+  text-transform: uppercase;
+  transition: all 100ms;
+  background: transparent;
+  border: 1px solid #8660b4;
   border-radius: 5px;
   -webkit-border-radius: 5px;
-  color: var(--brand-purple);
-    font-weight: 500;
+  color: #8660b4;
+  font-weight: 500;
 
 }
 #search-btn:hover, #go-btn:hover {
-  background-color: fade(var(--brand-purple), 2%);
-  border-color: darken(var(--brand-purple), 5%);
-  color: darken(var(--brand-purple), 5%);
+  background-color: fade(#8660b4, 2%);
+  border-color: darken(#8660b4, 5%);
+  color: darken(var(#8660b4;, 5%);
   cursor: default;
   box-shadow: none;
 }

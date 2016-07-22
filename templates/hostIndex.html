@@ -43,7 +43,7 @@
       }
       
       if (data.length > 0) {
-        $(".hostPlaylist").css('border', 'solid var(--gray-light) 0.5px');
+        $(".hostPlaylist").css('border', 'solid #7a8491 0.5px');
         url = 'https://embed.spotify.com/?uri=spotify:trackset:1Q:';
         url += String(data[0].uri).replace(/spotify:track:(.*)/, '$1');
         for (var i = 1; i < data.length; i++) {

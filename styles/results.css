@@ -1,13 +1,13 @@
 .trackEntry {
   background-color: white;
-  border-bottom: solid var(--gray-light) 0.5px;
+  border-bottom: solid #7a8491 0.5px;
   height: 64px;
   vertical-align: middle;
   display: flex;
 }
 
 .trackEntry:hover {
-  background-color: var(--brand-purple-light);
+  background-color: #ecc6ff;
 }
 
 .trackEntry img {
@@ -51,7 +51,7 @@
 }
 
 .right .bottom p {
-  color: var(--gray-darkest);
+  color: #3f5167;
   font-size: 10px;
   padding-top: 3px;
   padding-bottom: 3px; 

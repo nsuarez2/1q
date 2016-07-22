@@ -1,4 +1,4 @@
-:root {
+/*:root {
 	--brand-purple-light:   #ecc6ff;
 	--brand-purple: 		#8660b4;
 	--brand-purple-dark: 	#2f1f42;
@@ -12,7 +12,7 @@
 
 	--player-width:			 640px;
 	--player-height:		 80px;
-}
+}*/
 
 @font-face {
 	font-family: timeBurner;

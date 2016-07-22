@@ -1,5 +1,5 @@
 .playlist {
-	width: var(--player-width);
+	width: 640px;
 }
 
 iframe {
@@ -16,7 +16,7 @@ iframe {
 	bottom: -5px;
 	left: 25%;
 	border-radius: 5px;
-	background-color: var(--brand-purple-dark);
+	background-color: #2f1f42;
 	margin: 0 auto;
 	width: 50%;
 	height: 55px;
@@ -24,7 +24,7 @@ iframe {
 }
 
 .bottom-banner p {
-	color: var(--gray-lighter);
+	color: #c4cdda;
 }
 .bottom-banner a {
 	color: white;
