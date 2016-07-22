@@ -157,7 +157,7 @@ app.get('/account', ensureAuthenticated, function(req, res){
 app.get('/host/:r_id', function(req, res) {
 
   var r_id = req.params.r_id;
-  res.render('hostIndex.html', { user: req.user, msg: msg, room_id: r_id});
+  res.render('hostIndex.html', { user: req.user, room_id: r_id});
 });
 
 app.get('/amigo/:r_id', function(req, res) {
