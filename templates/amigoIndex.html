@@ -15,7 +15,9 @@
   
   <script>
     $('#track-search-input').attr("autocomplete", "off");
-    var socket = io.connect('http://{{ip}}:8080');
+    var socket = io.connect('/');
+    var roomNum = {{r_id}};
+    console.log("HEY FROM " + roomNum);
     socket.emit('getPlaylist', {});
     console.log('tried to send');
     socket.on('providePlaylist', function(data) {
