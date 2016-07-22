@@ -14,13 +14,14 @@ var express = require('express'),
     network = require('network'),
     cheerio = require('cheerio'),
     $ = require('jquery'),
+    collections = require('pycollections'),
     SpotifyWebApi = require('spotify-web-api-node');
 
 var consolidate = require('consolidate');
 
 var appKey = '20535ac1ce784763a79e16c952b9cfe8';
 var appSecret = 'f19da400224c4f968acaf580111f534e';
-var playlists = {};
+var playlists = new collections.DefaultDict([].constructor);
 var q_id = 0;
 
 io.sockets.on('connection', function (socket) {
@@ -29,8 +30,8 @@ io.sockets.on('connection', function (socket) {
     socket.room = room;
     socket.join(room);
     // echo to client they've connected
-    socket.emit('providePlaylist', playlists[room]);
-    socket.broadcast.to(room).emit('providePlaylist', playlists[room]);
+    socket.emit('providePlaylist', playlists.get(room));
+    socket.broadcast.to(room).emit('providePlaylist', playlists.get(room));
     // echo to room 1 that a person has connected to their room
     //socket.broadcast.to('room1').emit('updatechat', 'SERVER', username + ' has connected to this room');
     //socket.emit('updaterooms', rooms, 'room1');
@@ -49,10 +50,10 @@ io.sockets.on('connection', function (socket) {
       var trackid = data.replace(/^spotify:track:(.*)$/, '$1');
       spotifyApi.getTrack(trackid)
         .then(function(trackData) {
-            playlists[room].push(trackData.body);
+            playlists.get(room).push(trackData.body);
             socket.join(room);
-            socket.broadcast.to(room).emit('newTrack', playlists[room]);
-            socket.broadcast.to(room).emit('providePlaylist', playlists[room]);
+            socket.broadcast.to(room).emit('newTrack', playlists.get(room));
+            socket.broadcast.to(room).emit('providePlaylist', playlists.get(room));
 
         });
     } else {
@@ -62,7 +63,7 @@ io.sockets.on('connection', function (socket) {
   
   socket.on('getPlaylist', function(msg) {
     var room = socket.room;
-    socket.broadcast.to(room).emit('providePlaylist', playlists[room]);
+    socket.broadcast.to(room).emit('providePlaylist', playlists.get(room));
   });
   
 });
