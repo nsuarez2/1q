@@ -1,15 +1,19 @@
-{% extends 'layout.html' %}
-
-{% block content %}
-  <div id="amigo">
-    <div class="info-banner">
-      <h1>Welcome</h1>
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>1Q</title>
+    <link rel="stylesheet" type="text/css" href="/main.css"/>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  </head>
+  <body>
+    <div class="nameq">
+      <h1>1Q</h1>
+      <p>Everyone's music. One queue.</p>
+      <form method="post" value="hello">
+        <input id="qname-input" type="text" class="line" name="qname" placeholder="Queue name"/>
+        <input id="go-btn" type="submit" value="Go!"/>
+      </form>
+      <p>{{ errMsg }}</p>
     </div>
-    <h3>Name your Queue</h3>
-    <form method="post" value="hello">
-      <input id="track-search-input" type="text" class="line" name="qname"/>
-      <input id="search-btn" type="submit" value="Search"/>
-    </form>
-    <div class="amigoPlaylist"></div>
-  </div>
-{% endblock %}/
+  </body>
+</html>

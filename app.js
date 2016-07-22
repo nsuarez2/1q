@@ -15,8 +15,7 @@ var express = require('express'),
     cheerio = require('cheerio'),
     $ = require('jquery'),
     collections = require('pycollections'),
-    SpotifyWebApi = require('spotify-web-api-node'),
-    favicon = require('serve-favicon');
+    SpotifyWebApi = require('spotify-web-api-node');
 
 var consolidate = require('consolidate');
 
@@ -136,8 +135,6 @@ app.use(session({
 // persistent login sessions (recommended).
 app.use(passport.initialize());
 app.use(passport.session());
-
-app.use(favicon(__dirname + '/favicon.ico'));
 
 app.use(express.static(__dirname + '/styles'));
 
