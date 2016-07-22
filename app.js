@@ -20,10 +20,6 @@ var consolidate = require('consolidate');
 
 var appKey = '20535ac1ce784763a79e16c952b9cfe8';
 var appSecret = 'f19da400224c4f968acaf580111f534e';
-var client;
-var msg ='';
-var queue = [];
-var rooms = {};
 var playlists = {};
 var q_id = 0;
 
@@ -147,17 +143,7 @@ app.use(express.static(__dirname + '/styles'));
 app.engine('html', consolidate.swig);
 
 app.get('/', function(req, res) {
-
   res.redirect('/auth/spotify');
-  // var room_id = q_id;
-  // q_id += 1;
-
-  // rooms[room_id] = room_id;
-
-  // console.log(room_id);
-  // console.log("penis");
-
-  // res.redirect('/host/' + room_id);
 });
 
 app.get('/login', function(req, res) {
@@ -192,19 +178,6 @@ app.get('/auth/spotify',
 // function will not be called.
 });
 
-var data_dict;
-
-// io.on('connection', function(socket){
-
-//   socket.on('sendTrack', function(msg){
-//     parse_data(String(msg.data));
-//   });
-  
-//   socket.on('getPlaylist', function(msg){
-//     io.sockets.emit('providePlaylist', playlist);
-//   });
-// });
-
 // GET /auth/spotify/callback
 //   Use passport.authenticate() as route middleware to authenticate the
 //   request. If authentication fails, the user will be redirected back to the
@@ -218,7 +191,7 @@ app.get('/callback',
     var room_id = q_id;
     q_id += 1;
 
-      playlists[room_id] = [];
+    playlists[room_id] = [];
 
     res.redirect('/host/' + room_id);
 });
