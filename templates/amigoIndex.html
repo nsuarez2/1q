@@ -6,7 +6,7 @@
       <h1>Joined queue</h1>
     </div>
     <h3>Search for some tunes!</h3>
-    <form method="post" action="/searchTrack" value="hello">
+    <form method="post" action="/searchTrack/{{r_id}}" value="hello">
       <input id="track-search-input" type="text" class="line" name="amigo[search]"" placeholder="SexyBack, probably"/>
       <input id="search-btn" type="submit" value="Search"/>
     </form>
@@ -16,31 +16,34 @@
   <script>
     $('#track-search-input').attr("autocomplete", "off");
     var socket = io.connect('/');
+
     var roomNum = {{r_id}};
-    console.log("HEY FROM " + roomNum);
-    socket.emit('getPlaylist', {});
-    console.log('tried to send');
+
+    socket.on('connect', function() {
+      socket.emit('joinq', roomNum);
+    });
+
+    //socket.broadcast.to(roomNum).emit('getPlaylist', {});;
     socket.on('providePlaylist', function(data) {
-      console.log('recieved playlist');
       $(".amigoPlaylist").empty();
       for(var i = 0; i < data.length; i++) {
-                 var songEntry = " \
-                  <div class='trackEntry' uri=" + data[i].uri + "> \
-    <div class='left'> \
-      <img src=" + data[i].album.images[2].url + "> \
-    </div> \
-    <div class='right'> \
-      <section class='top'> \
-        <p>" + data[i].name + "</p> \
-      </section> \
-      <section class='bottom'> \
-        <p>" + data[i].artists[0].name + "</p> \
-      </section> \
-    </div> \
-  </div>"
+        var songEntry = " \
+          <div class='trackEntry' uri=" + data[i].uri + "> \
+            <div class='left'> \
+              <img src=" + data[i].album.images[2].url + "> \
+            </div> \
+            <div class='right'> \
+              <section class='top'> \
+                <p>" + data[i].name + "</p> \
+              </section> \
+              <section class='bottom'> \
+                <p>" + data[i].artists[0].name + "</p> \
+              </section> \
+            </div> \
+          </div>"
       $(".amigoPlaylist").append(songEntry);
       $(".amigoPlaylist").css('border', 'solid var(--gray-light) 0.5px');
-      }
+    }
     });
   </script>
 {% endblock %}/

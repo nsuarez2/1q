@@ -14,10 +14,10 @@
   <script>
     var socket = io.connect('/');
 
-    socket.on('connect', function(){
-      console.log("I CONNECTED");
-      // call the server-side function 'adduser' and send one parameter (value of prompt)
-      //socket.emit('startq', {{ room_id }});
+    var r_id = {{room_id}};
+
+    socket.on('connect', function() {
+      socket.emit('newq', r_id);
     });
 
     socket.on('newTrack', function(data) {

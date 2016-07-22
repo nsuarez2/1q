@@ -25,14 +25,18 @@
 </div>
 <script>
 $(".searchResultsContainer").css('border', 'solid var(--gray-light) 0.5px');
-var socket = io.connect('http://{{ip}}:8080');
+var socket = io.connect('/');
+
+var r_id = {{r_id}};
+
+//socket.room = r_id;
+//socket.join(r_id);
 
 $(".trackEntry").click(function() {
   var uri = $( this ).attr("uri");
   console.log(uri);
-  $(this).css("background-color", '#d3adff').fadeOut( 1000 );
-  socket.emit('sendTrack', {data: uri});
-  window.location.pathname = "/amigo";
+  socket.emit('sendTrack', {data: uri, room: r_id});
+  window.location.pathname = "/amigo/" + r_id;
 });
 </script>
 

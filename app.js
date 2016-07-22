@@ -27,51 +27,47 @@ var rooms = {};
 var q_id = 0;
 
 io.sockets.on('connection', function (socket) {
-  
-  // when the client emits 'adduser', this listens and executes
-  socket.on('joinq', function(roomNum){
-    // store the room name in the socket session for this client
-    var room_id = '1q_' + roomNum;
-    socket.room = room_id;
 
-    // send client to room 1
-    socket.join(room_id);
+  socket.on('joinq', function(room) {
+    socket.room = room;
+    socket.join(room);
     // echo to client they've connected
-    socket.emit('updatechat', 'SERVER', 'you have connected to room1');
+    socket.emit('providePlaylist', playlist);
+    socket.broadcast.to(room).emit('providePlaylist', playlist);
     // echo to room 1 that a person has connected to their room
-    socket.broadcast.to(room_id).emit('updatechat', 'SERVER', username + ' has connected to this room');
-    socket.emit('updaterooms', rooms, 'room1');
+    //socket.broadcast.to('room1').emit('updatechat', 'SERVER', username + ' has connected to this room');
+    //socket.emit('updaterooms', rooms, 'room1');
   });
-  
-  // when the client emits 'sendchat', this listens and executes
-  socket.on('sendchat', function (data) {
-    // we tell the client to execute 'updatechat' with 2 parameters
-    io.sockets.in(socket.room).emit('updatechat', socket.username, data);
-  });
-  
-  socket.on('switchRoom', function(newroom){
-    socket.leave(socket.room);
-    socket.join(newroom);
-    socket.emit('updatechat', 'SERVER', 'you have connected to '+ newroom);
-    // sent message to OLD room
-    socket.broadcast.to(socket.room).emit('updatechat', 'SERVER', socket.username+' has left this room');
-    // update socket session room title
-    socket.room = newroom;
-    socket.broadcast.to(newroom).emit('updatechat', 'SERVER', socket.username+' has joined this room');
-    socket.emit('updaterooms', rooms, newroom);
-  });
-  
 
-  // when the user disconnects.. perform this
-  socket.on('disconnect', function(){
-    // remove the username from global usernames list
-    delete usernames[socket.username];
-    // update list of users in chat, client-side
-    io.sockets.emit('updateusers', usernames);
-    // echo globally that this client has left
-    socket.broadcast.emit('updatechat', 'SERVER', socket.username + ' has disconnected');
-    socket.leave(socket.room);
+  socket.on('newq', function(room) {
+    socket.room = room;
+    socket.join(room);
   });
+
+  socket.on('sendTrack', function(msg) {
+    var room = msg.room;
+    var data = msg.data
+
+    if (data.match(/^spotify:track:\w*$/)) {
+      var trackid = data.replace(/^spotify:track:(.*)$/, '$1');
+      spotifyApi.getTrack(trackid)
+        .then(function(trackData) {
+            playlist.push(trackData.body);
+            socket.join(room);
+            socket.broadcast.to(room).emit('newTrack', playlist);
+            socket.broadcast.to(room).emit('providePlaylist', playlist);
+
+        });
+    } else {
+      console.log('Malformed data recieved');
+    }
+  });
+  
+  socket.on('getPlaylist', function(msg) {
+    var room = socket.room;
+    socket.broadcast.to(room).emit('providePlaylist', playlist);
+  });
+  
 });
 
 var spotifyApi = new SpotifyWebApi({
@@ -174,7 +170,6 @@ app.get('/account', ensureAuthenticated, function(req, res){
 app.get('/host/:r_id', function(req, res) {
 
   var r_id = req.params.r_id;
-  console.log(r_id);
   res.render('hostIndex.html', { user: req.user, msg: msg, room_id: r_id});
 });
 
@@ -199,29 +194,16 @@ app.get('/auth/spotify',
 var playlist = [];
 var data_dict;
 
-io.on('connection', function(socket){
+// io.on('connection', function(socket){
 
-  socket.on('sendTrack', function(msg){
-    parse_data(String(msg.data));
-  });
+//   socket.on('sendTrack', function(msg){
+//     parse_data(String(msg.data));
+//   });
   
-  socket.on('getPlaylist', function(msg){
-    io.sockets.emit('providePlaylist', playlist);
-  });
-});
-
-function parse_data(data) {
-    if (data.match(/^spotify:track:\w*$/)) {
-      var trackid = data.replace(/^spotify:track:(.*)$/, '$1');
-      spotifyApi.getTrack(trackid)
-        .then(function(trackData) {
-            playlist.push(trackData.body);
-            io.sockets.emit('newTrack', playlist);
-        });
-    } else {
-      console.log('Malformed data recieved');
-    }
-}
+//   socket.on('getPlaylist', function(msg){
+//     io.sockets.emit('providePlaylist', playlist);
+//   });
+// });
 
 // GET /auth/spotify/callback
 //   Use passport.authenticate() as route middleware to authenticate the
@@ -238,9 +220,6 @@ app.get('/callback',
 
     rooms[room_id] = room_id;
 
-    console.log(room_id);
-    console.log("penis");
-
     res.redirect('/host/' + room_id);
 });
 
@@ -249,21 +228,21 @@ app.get('/logout', function(req, res) {
   res.redirect('/');
 });
 
-app.post('/searchTrack', function(req, res) {
-  console.log("FUCK COLIN");
+app.post('/searchTrack/:r_id', function(req, res) {
+  var r_id = req.params.r_id;
+
   var search = req.body.amigo.search;
   if (!search) {
     search = "SexyBack";
   }
-  console.log(search);
   spotifyApi.searchTracks(search, {limit: 50})
   .then(function(data) {
     var topTrack = data.body.tracks.items[0];
     res.render('searchResults.html', 
       {
         user: req.user, 
-        ip: IP,
-        tracks: data.body.tracks.items
+        tracks: data.body.tracks.items,
+        r_id: r_id
       });
   }, function(err) {
     console.error(err);
