@@ -24,6 +24,7 @@ var client;
 var msg ='';
 var queue = [];
 var rooms = {};
+var playlists = {};
 var q_id = 0;
 
 io.sockets.on('connection', function (socket) {
@@ -32,8 +33,8 @@ io.sockets.on('connection', function (socket) {
     socket.room = room;
     socket.join(room);
     // echo to client they've connected
-    socket.emit('providePlaylist', playlist);
-    socket.broadcast.to(room).emit('providePlaylist', playlist);
+    socket.emit('providePlaylist', playlists[room]);
+    socket.broadcast.to(room).emit('providePlaylist', playlists[room]);
     // echo to room 1 that a person has connected to their room
     //socket.broadcast.to('room1').emit('updatechat', 'SERVER', username + ' has connected to this room');
     //socket.emit('updaterooms', rooms, 'room1');
@@ -52,10 +53,10 @@ io.sockets.on('connection', function (socket) {
       var trackid = data.replace(/^spotify:track:(.*)$/, '$1');
       spotifyApi.getTrack(trackid)
         .then(function(trackData) {
-            playlist.push(trackData.body);
+            playlists[room].push(trackData.body);
             socket.join(room);
-            socket.broadcast.to(room).emit('newTrack', playlist);
-            socket.broadcast.to(room).emit('providePlaylist', playlist);
+            socket.broadcast.to(room).emit('newTrack', playlists[room]);
+            socket.broadcast.to(room).emit('providePlaylist', playlists[room]);
 
         });
     } else {
@@ -65,7 +66,7 @@ io.sockets.on('connection', function (socket) {
   
   socket.on('getPlaylist', function(msg) {
     var room = socket.room;
-    socket.broadcast.to(room).emit('providePlaylist', playlist);
+    socket.broadcast.to(room).emit('providePlaylist', playlists[room]);
   });
   
 });
@@ -191,7 +192,6 @@ app.get('/auth/spotify',
 // function will not be called.
 });
 
-var playlist = [];
 var data_dict;
 
 // io.on('connection', function(socket){
@@ -218,7 +218,7 @@ app.get('/callback',
     var room_id = q_id;
     q_id += 1;
 
-    rooms[room_id] = room_id;
+      playlists[room_id] = [];
 
     res.redirect('/host/' + room_id);
 });
