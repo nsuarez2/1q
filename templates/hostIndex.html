@@ -20,7 +20,7 @@
       socket.emit('newq', r_id);
     });
 
-    socket.on('newTrack', function(data) {
+    socket.on('providePlaylist', function(data) {
       var url = 'https://embed.spotify.com/?uri=spotify:track:7GhIk7Il098yCjg4BQjzvb&theme=white&view=coverart';
       $(".hostPlaylist").empty();
       for(var i = 0; i < data.length; i++) {

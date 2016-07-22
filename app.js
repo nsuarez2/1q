@@ -30,17 +30,15 @@ io.sockets.on('connection', function (socket) {
   socket.on('joinq', function(room) {
     socket.room = room;
     socket.join(room);
-    // echo to client they've connected
     socket.emit('providePlaylist', playlists.get(room));
     socket.broadcast.to(room).emit('providePlaylist', playlists.get(room));
-    // echo to room 1 that a person has connected to their room
-    //socket.broadcast.to('room1').emit('updatechat', 'SERVER', username + ' has connected to this room');
-    //socket.emit('updaterooms', rooms, 'room1');
   });
 
   socket.on('newq', function(room) {
     socket.room = room;
     socket.join(room);
+    socket.emit('providePlaylist', playlists.get(room));
+    socket.broadcast.to(room).emit('providePlaylist', playlists.get(room));
   });
 
   socket.on('sendTrack', function(msg) {
@@ -53,7 +51,6 @@ io.sockets.on('connection', function (socket) {
         .then(function(trackData) {
             playlists.get(room).push(trackData.body);
             socket.join(room);
-            socket.broadcast.to(room).emit('newTrack', playlists.get(room));
             socket.broadcast.to(room).emit('providePlaylist', playlists.get(room));
 
         });
