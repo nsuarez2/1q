@@ -146,7 +146,10 @@ app.get('/', function(req, res) {
 
 app.post('/', function(req, res) {
     var qname = req.body.qname;
-    res.redirect('/host/'+qname);
+
+    qname = qname.replace(/\s+/g, '-').toLowerCase();
+
+    res.redirect('/host/'+ qname);
 });
 
 app.get('/login', function(req, res) {
