@@ -20,6 +20,40 @@ a {
   text-decoration: none;
 }
 
+#nameq-body {
+  background-image: none;
+  background-color: white;
+}
+
+#nameq {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex: 1 auto;
+  flex-direction: column;
+  background-color: white;
+  margin: 0;
+  text-align: center;
+}
+#nameq .container {
+  height: 600px;
+  width: 700px;
+  position: relative;
+  margin: auto;
+}
+
+#nameq .container h1 {
+  font-family: comfortaa;
+  font-size: 150px;
+  font-weight: 100;
+  color: var(--brand-purple);
+  margin-bottom: 10px;
+}
+
+#brand, #cheesy, #in {
+  display: none;
+}
+
 .navbar {
   background-color: var(--brand-purple);
   height: 75px;
@@ -148,7 +182,7 @@ input[type="text"]::-webkit-input-placeholder {
     color: var(--gray-lighter);
     font-weight: 400;
 }
-#search-btn {
+#search-btn, #go-btn {
   background-color: transparent;
     box-shadow: none;
     text-shadow: none;
@@ -165,11 +199,14 @@ input[type="text"]::-webkit-input-placeholder {
     font-weight: 500;
 
 }
-#search-btn:hover {
-    background-color: fade(var(--brand-purple), 2%);
-    border-color: darken(var(--brand-purple), 5%);
-    color: darken(var(--brand-purple), 5%);
-    cursor: default;
-    box-shadow: none;
-  }
+#search-btn:hover, #go-btn:hover {
+  background-color: fade(var(--brand-purple), 2%);
+  border-color: darken(var(--brand-purple), 5%);
+  color: darken(var(--brand-purple), 5%);
+  cursor: default;
+  box-shadow: none;
+}
+
+
+
 

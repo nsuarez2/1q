@@ -5,15 +5,27 @@
     <link rel="stylesheet" type="text/css" href="/main.css"/>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
   </head>
-  <body>
-    <div class="nameq">
-      <h1>1Q</h1>
-      <p>Everyone's music. One queue.</p>
-      <form method="post" value="hello">
-        <input id="qname-input" type="text" class="line" name="qname" placeholder="Queue name"/>
-        <input id="go-btn" type="submit" value="Go!"/>
-      </form>
-      <p>{{ errMsg }}</p>
+  <body id="nameq-body">
+    <div id="nameq">
+      <div class="container">
+        <h1 id="brand">1Q</h1>
+        <p id="cheesy">Everyone's music. One queue.</p>
+        <form id="in" method="post" value="hello">
+          <input id="qname-input" type="text" class="line" name="qname" placeholder="Queue name"/>
+          <input id="go-btn" type="submit" value="Go!"/>
+        </form>
+        <p>{{ errMsg }}</p>
+      </div>
     </div>
+
+    <script>
+      $(document).ready(function () {
+        $("#brand").fadeIn(1500, function() {
+          $("#cheesy").fadeIn(1200, function() {
+            $("#in").fadeIn(1200);
+          });
+        });
+      });
+    </script>
   </body>
 </html>
