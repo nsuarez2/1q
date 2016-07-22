@@ -20,9 +20,7 @@ var consolidate = require('consolidate');
 
 var appKey = '20535ac1ce784763a79e16c952b9cfe8';
 var appSecret = 'f19da400224c4f968acaf580111f534e';
-var server;
 var client;
-var IP;
 var msg ='';
 var queue = [];
 var rooms = {};
@@ -153,17 +151,11 @@ app.engine('html', consolidate.swig);
 
 app.get('/', function(req, res) {
 
-  var room_id = '1q_' + q_id;
+  var room_id = q_id;
   q_id += 1;
 
-  network.get_private_ip(function(err, ip) {
-      if (err) {
-        console.log(err)
-      } else {
-        IP = ip; 
-      }
-    });
-
+  rooms[room_id] = room_id;
+  
   console.log(room_id);
   console.log("penis");
 
@@ -182,10 +174,12 @@ app.get('/hostIndex', function(req, res) {
 
   var r_id = req.query.room_id;
   console.log(r_id);
-  res.render('hostIndex.html', { user: req.user, ip: IP, msg: msg, room_id: r_id});
+  res.render('hostIndex.html', { user: req.user, msg: msg, room_id: r_id});
 });
 
 app.get('/amigo/:r_id', function(req, res) {
+
+  r_id = req.params.r_id;
   res.render('amigoIndex.html', { r_id: r_id});
 });
 
