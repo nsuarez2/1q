@@ -151,15 +151,16 @@ app.engine('html', consolidate.swig);
 
 app.get('/', function(req, res) {
 
-  var room_id = q_id;
-  q_id += 1;
+  res.redirect('/auth/spotify');
+  // var room_id = q_id;
+  // q_id += 1;
 
-  rooms[room_id] = room_id;
-  
-  console.log(room_id);
-  console.log("penis");
+  // rooms[room_id] = room_id;
 
-  res.redirect('/hostIndex?room_id=' + room_id);
+  // console.log(room_id);
+  // console.log("penis");
+
+  // res.redirect('/host/' + room_id);
 });
 
 app.get('/login', function(req, res) {
@@ -170,9 +171,9 @@ app.get('/account', ensureAuthenticated, function(req, res){
   res.render('account.html', { user: req.user });
 });
 
-app.get('/hostIndex', function(req, res) {
+app.get('/host/:r_id', function(req, res) {
 
-  var r_id = req.query.room_id;
+  var r_id = req.params.r_id;
   console.log(r_id);
   res.render('hostIndex.html', { user: req.user, msg: msg, room_id: r_id});
 });
@@ -231,16 +232,16 @@ app.get('/callback',
   passport.authenticate('spotify', { failureRedirect: '/login' }),
   function(req, res) {
 
-    network.get_private_ip(function(err, ip) {
-      if (err) {
-        console.log(err)
-      } else {
-        IP = ip; 
-      }
+    
+    var room_id = q_id;
+    q_id += 1;
 
-      http.listen(8080, function(){});
-      res.redirect('/hostIndex');
-    });
+    rooms[room_id] = room_id;
+
+    console.log(room_id);
+    console.log("penis");
+
+    res.redirect('/host/' + room_id);
 });
 
 app.get('/logout', function(req, res) {
@@ -249,10 +250,12 @@ app.get('/logout', function(req, res) {
 });
 
 app.post('/searchTrack', function(req, res) {
+  console.log("FUCK COLIN");
   var search = req.body.amigo.search;
-  if(!search) {
+  if (!search) {
     search = "SexyBack";
   }
+  console.log(search);
   spotifyApi.searchTracks(search, {limit: 50})
   .then(function(data) {
     var topTrack = data.body.tracks.items[0];
