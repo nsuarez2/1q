@@ -144,7 +144,12 @@ app.use(express.static(__dirname + '/styles'));
 app.engine('html', consolidate.swig);
 
 app.get('/', function(req, res) {
-  res.redirect('/auth/spotify');
+  res.render('qname.html');
+});
+
+app.post('/', function(req, res) {
+    var qname = req.body.qname;
+    res.redirect('/host/'+qname);
 });
 
 app.get('/login', function(req, res) {
@@ -187,12 +192,6 @@ app.get('/auth/spotify',
 app.get('/callback',
   passport.authenticate('spotify', { failureRedirect: '/login' }),
   function(req, res) {
-
-    
-    var room_id = q_id;
-    q_id += 1;
-
-    playlists[room_id] = [];
 
     res.redirect('/host/' + room_id);
 });
