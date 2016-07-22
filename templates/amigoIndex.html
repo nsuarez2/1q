@@ -7,7 +7,7 @@
     </div>
     <h3>Search for some tunes!</h3>
     <form method="post" action="/searchTrack/{{r_id}}" value="hello">
-      <input id="track-search-input" type="text" class="line" name="amigo[search]"" placeholder="SexyBack, probably"/>
+      <input id="track-search-input" type="text" class="line" name="amigo[search]" placeholder="SexyBack, probably"/>
       <input id="search-btn" type="submit" value="Search"/>
     </form>
     <div class="amigoPlaylist"></div>
@@ -17,7 +17,7 @@
     $('#track-search-input').attr("autocomplete", "off");
     var socket = io.connect('/');
 
-    var roomNum = {{r_id}};
+    var roomNum = '{{r_id}}';
 
     socket.on('connect', function() {
       socket.emit('joinq', roomNum);

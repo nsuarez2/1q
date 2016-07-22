@@ -14,7 +14,7 @@
   <script>
     var socket = io.connect('/');
 
-    var r_id = {{room_id}};
+    var r_id = '{{room_id}}';
 
     socket.on('connect', function() {
       socket.emit('newq', r_id);
