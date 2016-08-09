@@ -4,6 +4,7 @@
   height: 64px;
   vertical-align: middle;
   display: flex;
+  transition: all 300ms;
 }
 
 .trackEntry:hover {

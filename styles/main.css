@@ -50,6 +50,10 @@ a {
   margin-bottom: 10px;
 }
 
+#nameq .container p {
+  color: #7a8491;
+}
+
 #welcome-brand, #cheesy, #in {
   display: none;
 }
@@ -163,11 +167,12 @@ a {
 input[type="text"].line {
   width: 200px;
   border: 0;
-  border-bottom: 1px solid #233137;
-  color: #556473;
+  border-bottom: 1px solid #e6edf4;
+  color: #8660b4;
+  font-size: 12px;
   font-weight: 300;
   padding: 5px;
-  transition: all 0.25s;
+  transition: all 300ms;
   text-align: center;
 }
 input[type="text"].line:hover {
@@ -190,7 +195,7 @@ input[type="text"]::-webkit-input-placeholder {
   font-size: 10px;
   padding: 0.5rem 1rem;
   text-transform: uppercase;
-  transition: all 100ms;
+  transition: all 300ms;
   background: transparent;
   border: 1px solid #8660b4;
   border-radius: 5px;
@@ -200,9 +205,9 @@ input[type="text"]::-webkit-input-placeholder {
 
 }
 #search-btn:hover, #go-btn:hover {
-  background-color: fade(#8660b4, 2%);
-  border-color: darken(#8660b4, 5%);
-  color: darken(var(#8660b4;, 5%);
+  background-color: #FFF9FF;
+  border-color: #532D81;
+  color: #532D81;
   cursor: default;
   box-shadow: none;
 }
