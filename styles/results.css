@@ -1,6 +1,6 @@
 .trackEntry {
   background-color: white;
-  border-bottom: solid #7a8491 0.5px;
+  border-bottom: solid #7a8491 1px;
   height: 64px;
   vertical-align: middle;
   display: flex;
