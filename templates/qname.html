@@ -11,21 +11,44 @@
         <h1 id="welcome-brand">1Q</h1>
         <p id="cheesy">Everyone's music. One queue.</p>
         <form id="in" method="post" value="hello">
-          <input id="qname-input" type="text" class="line" name="qname" placeholder="Queue name"/>
+          <input id="qname-input" type="text" class="line" name="qname" placeholder="Queue name" autocomplete="off"/>
           <input id="go-btn" type="submit" value="Go!"/>
         </form>
-        <p>{{ errMsg }}</p>
+        <p id="err-msg"></p>
       </div>
     </div>
 
     <script>
-      $('#qname-input').attr("autocomplete", "off");
       $(document).ready(function () {
         $("#welcome-brand").fadeIn(1500, function() {
           $("#cheesy").fadeIn(1200, function() {
             $("#in").fadeIn(1200);
           });
         });
+      });
+
+      $("form").submit(function(e) {
+        var nameInput = $("#qname-input").val();
+        if (!nameInput) {
+          $("#err-msg").html("Please just participate and enter a queue name.");
+          e.preventDefault();
+          return false;
+        }
+        if (nameInput == "host" ||
+            nameInput == "login" ||
+            nameInput == "logout" ||
+            nameInput == "account" ||
+            nameInput == "amigo" ||
+            nameInput == "callback" ||
+            nameInput == "searchTrack") {
+          $("#err-msg").html("That's a weird queue name choice. Try something else please");
+          e.preventDefault();
+          return false;
+        }
+      });
+
+      $("#qname-input").on("input", function() {
+        $("#err-msg").html("");
       });
     </script>
   </body>

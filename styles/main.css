@@ -11,8 +11,11 @@ body {
   font-family: 'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
   z-index: 0;
   overflow: hidden;
-  background-image: url('nyancat.gif');
-  background-repeat: repeat;
+  background-color: #e6edf4;
+  background: -webkit-linear-gradient(left, #e6edf4, #8660b4 , #e6edf4);
+  background: -o-linear-gradient(right, #e6edf4, #8660b4, #e6edf4);
+  background: -moz-linear-gradient(right, #e6edf4, #8660b4, #e6edf4);
+  background: linear-gradient(to right,  #e6edf4, #8660b4 , #e6edf4);
   height: 100%;
 }
 
@@ -52,6 +55,11 @@ a {
 
 #nameq .container p {
   color: #7a8491;
+}
+
+#nameq #err-msg {
+  color: red;
+  font-size: 12px;
 }
 
 #welcome-brand, #cheesy, #in {
@@ -118,7 +126,7 @@ a {
   text-align: center;
   width: 1000px;
   height: 100%;
-  overflow: scroll;
+  overflow: hidden;
   background-color: white;
   z-index: 1;
 }
@@ -202,16 +210,43 @@ input[type="text"]::-webkit-input-placeholder {
   -webkit-border-radius: 5px;
   color: #8660b4;
   font-weight: 500;
-
 }
-#search-btn:hover, #go-btn:hover {
-  background-color: #FFF9FF;
+
+#search-btn:hover, #go-btn:hover, #bg-btn:hover {
+  background-color: #532D81;
   border-color: #532D81;
-  color: #532D81;
+  color: white;
   cursor: default;
   box-shadow: none;
 }
 
+#bg-btn {
+  background-color: rgba(230, 237, 244, 0.7);
+  box-shadow: none;
+  text-shadow: none;
+  cursor: default;
+  font-size: 12px;
+  color: #8660b4;
+  padding: 0.5rem 1rem;
+  text-transform: uppercase;
+  transition: all 300ms;
+  border: 1px solid #8660b4;
+  border-radius: 5px;
+  -webkit-border-radius: 5px;
+  font-weight: 500;
+  position: absolute;
+  bottom: 5px;
+  right: 3%;
+}
+#bg-btn:focus, #go-btn:focus, #search-btn:focus {
+  outline: 0;
+}
+
+@media screen and (max-width: 1000px) {
+  #bg-btn {
+    display: none;
+  }
+}
 
 
 

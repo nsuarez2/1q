@@ -14,11 +14,11 @@ iframe {
 .bottom-banner {
 	position: fixed;
 	bottom: -5px;
-	left: 25%;
+	left: 28%;
 	border-radius: 5px;
 	background-color: #2f1f42;
 	margin: 0 auto;
-	width: 50%;
+	width: 44%;
 	height: 55px;
 	z-index: 50;
 }

@@ -144,6 +144,15 @@ app.get('/', function(req, res) {
   res.render('qname.html');
 });
 
+app.get('/:r_id', function(req, res) {
+  r_id = req.params.r_id;
+  if (!r_id) {
+    res.render('qname.html');
+  } else {
+    res.render('amigoIndex.html', { r_id: r_id});
+  }
+});
+
 app.post('/', function(req, res) {
     var qname = req.body.qname;
 
@@ -166,11 +175,11 @@ app.get('/host/:r_id', function(req, res) {
   res.render('hostIndex.html', { user: req.user, room_id: r_id});
 });
 
-app.get('/amigo/:r_id', function(req, res) {
+// app.get('/amigo/:r_id', function(req, res) {
 
-  r_id = req.params.r_id;
-  res.render('amigoIndex.html', { r_id: r_id});
-});
+//   r_id = req.params.r_id;
+//   res.render('amigoIndex.html', { r_id: r_id});
+// });
 
 // GET /auth/spotify
 //   Use passport.authenticate() as route middleware to authenticate the

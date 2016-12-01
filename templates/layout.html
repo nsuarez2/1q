@@ -2,9 +2,25 @@
 <html>
   <head>
     <title>1Q</title>
-    <link rel="stylesheet" type="text/css" href="/main.css"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="/main.css" media="screen" />
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <script type="text/javascript" src='https://cdn.socket.io/socket.io-1.4.5.js'></script>
+
+    <script>
+      $(document).ready(function() {
+        $("#bg-btn").click(function() {
+          if ($("#bg-btn").text() == "Make me boring") {
+            $("#bg-btn").html("Make me fun");
+            $("body").css("background", "linear-gradient(to right,  #e6edf4, #8660b4 , #e6edf4)");
+          } else {
+            $("#bg-btn").html("Make me boring");
+            $("body").css("background-image", "url(/nyancat.gif)");
+            $("body").css("background-repeat", "repeat");
+          }
+        });
+      });
+    </script>
   </head>
   <body>
     <div class="navbar">
@@ -17,36 +33,9 @@
       <a href="/logout">Log Out</a>
     {% endif %}
     </div>
+    <button id="bg-btn">Make me fun</button>
     <div class="main-content">
       {% block content %}
     </div>
-    <script>
-      $.fn.clickOff = function(callback, selfDestroy) {
-        var clicked = false;
-        var parent = this;
-        var destroy = selfDestroy || true;
-        
-        parent.click(function() {
-            clicked = true;
-        });
-        
-        $(document).click(function(event) { 
-            if (!clicked) {
-                callback(parent, event);
-            }
-            if (destroy) {
-                //parent.clickOff = function() {};
-                //parent.off("click");
-                //$(document).off("click");
-                //parent.off("clickOff");
-            };
-            clicked = false;
-        });
-      };
-
-      $("body").clickOff(function() {
-          alert('clickOff');
-      });
-    </script>
   </body>
 </html>

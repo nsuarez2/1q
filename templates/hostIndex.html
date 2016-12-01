@@ -5,10 +5,9 @@
     <div class="info-banner">
       <h1>Hosting a queue</h1>
     </div>
-    <iframe id='player' src="https://embed.spotify.com/?uri=spotify:track:7GhIk7Il098yCjg4BQjzvb&theme=white&view=coverart" width="640" height="80" frameborder="0" allowtransparency="true"></iframe>
-    <div class="hostPlaylist"></div>
+    <iframe id='player' src="https://embed.spotify.com/?uri=spotify:trackset:1Q:0O45fw2L5vsWpdsOdXwNAR&theme=white" width="640" height="65%" frameborder="0" allowtransparency="true"></iframe>
     <div class="bottom-banner">
-      <p>Send this link to your friends: <a href="http://www.oneq.us/amigo/{{room_id}}" target="_blank">www.oneq.us/amigo/{{room_id}}</a></p>
+      <p>Send this link to your friends: <a href="http://oneq.us/{{room_id}}" target="_blank">oneq.us/{{room_id}}</a></p>
     </div>
   </div>
   <script>
@@ -21,26 +20,7 @@
     });
 
     socket.on('providePlaylist', function(data) {
-      var url = 'https://embed.spotify.com/?uri=spotify:track:7GhIk7Il098yCjg4BQjzvb&theme=white&view=coverart';
-      $(".hostPlaylist").empty();
-      for(var i = 0; i < data.length; i++) {
-        var songEntry = " \
-          <div class='trackEntry' uri=" + data[i].uri + "> \
-            <div class='left'> \
-              <img src=" + data[i].album.images[2].url + "> \
-            </div> \
-            <div class='right'> \
-              <section class='top'> \
-                <p>" + data[i].name + "</p> \
-              </section> \
-              <section class='bottom'> \
-                <p>" + data[i].artists[0].name + "</p> \
-              </section> \
-            </div> \
-          </div>"
-
-        $(".hostPlaylist").append(songEntry);
-      }
+      var url = 'https://embed.spotify.com/?uri=spotify:trackset:1Q:0O45fw2L5vsWpdsOdXwNAR&theme=white';
       
       if (data.length > 0) {
         $(".hostPlaylist").css('border', 'solid #7a8491 1px');
@@ -49,9 +29,10 @@
         for (var i = 1; i < data.length; i++) {
           url += ',' + String(data[i].uri).replace(/spotify:track:(.*)/, '$1');
         }
-        url += '&theme=white&view=coverart';
+        url += '&theme=white';
       }
-      $('#player').attr("src", url);
+      //$('#player').attr("src", url);
+      document.getElementById("player").src = url;
     });
   </script>
 {% endblock %}

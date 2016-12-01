@@ -3,18 +3,19 @@
 {% block content %}
   <div id="amigo">
     <div class="info-banner">
-      <h1>Joined queue</h1>
+      <h1>Joined queue {{r_id}}</h1>
     </div>
     <h3>Search for some tunes!</h3>
     <form method="post" action="/searchTrack/{{r_id}}" value="hello">
-      <input id="track-search-input" type="text" class="line" name="amigo[search]" placeholder="SexyBack, probably"/>
+      <input id="track-search-input" type="text" class="line" name="amigo[search]" placeholder="SexyBack, probably" autocomplete="off" />
       <input id="search-btn" type="submit" value="Search"/>
     </form>
     <div class="amigoPlaylist"></div>
   </div>
   
   <script>
-    $('#track-search-input').attr("autocomplete", "off");
+    $("#amigo").parent(".main-content").css("overflow","scroll");
+
     var socket = io.connect('/');
 
     var roomNum = '{{r_id}}';
@@ -23,7 +24,6 @@
       socket.emit('joinq', roomNum);
     });
 
-    //socket.broadcast.to(roomNum).emit('getPlaylist', {});;
     socket.on('providePlaylist', function(data) {
       $(".amigoPlaylist").empty();
       for(var i = 0; i < data.length; i++) {
