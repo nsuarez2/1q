@@ -144,15 +144,15 @@ app.use(favicon(__dirname + '/favicon.ico'));
 app.engine('html', consolidate.swig);
 
 app.get('/', function(req, res) {
-  res.render('qname.html');
+  res.render('qname.html', { title: 'Welcome to 1Q'});
 });
 
 app.get('/:r_id', function(req, res) {
   r_id = req.params.r_id;
   if (!r_id) {
-    res.render('qname.html');
+    res.render('qname.html', { title: 'Welcome to 1Q'});
   } else {
-    res.render('amigoIndex.html', { r_id: r_id});
+    res.render('amigoIndex.html', { r_id: r_id, title: 'Contributing | 1Q'});
   }
 });
 
@@ -175,7 +175,7 @@ app.get('/account', ensureAuthenticated, function(req, res){
 app.get('/host/:r_id', function(req, res) {
 
   var r_id = req.params.r_id;
-  res.render('hostIndex.html', { user: req.user, room_id: r_id});
+  res.render('hostIndex.html', { user: req.user, room_id: r_id, title: 'Hosting | 1Q'});
 });
 
 // app.get('/amigo/:r_id', function(req, res) {
@@ -227,7 +227,8 @@ app.post('/searchTrack/:r_id', function(req, res) {
       {
         user: req.user, 
         tracks: data.body.tracks.items,
-        r_id: r_id
+        r_id: r_id,
+        title: 'Search results | 1Q'
       });
   }, function(err) {
     console.error(err);
