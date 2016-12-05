@@ -10,7 +10,7 @@ body {
   padding: 0;
   font-family: 'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
   z-index: 0;
-  overflow: hidden;
+  overflow: auto;
   background-color: #e6edf4;
   background: -webkit-linear-gradient(left, #e6edf4, #8660b4 , #e6edf4);
   background: -o-linear-gradient(right, #e6edf4, #8660b4, #e6edf4);
