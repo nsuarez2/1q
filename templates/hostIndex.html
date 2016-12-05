@@ -23,7 +23,6 @@
       var url = 'https://embed.spotify.com/?uri=spotify:trackset:1Q:0O45fw2L5vsWpdsOdXwNAR&theme=white';
       
       if (data.length > 0) {
-        $(".hostPlaylist").css('border', 'solid #7a8491 1px');
         url = 'https://embed.spotify.com/?uri=spotify:trackset:1Q:';
         url += String(data[0].uri).replace(/spotify:track:(.*)/, '$1');
         for (var i = 1; i < data.length; i++) {
@@ -31,7 +30,6 @@
         }
         url += '&theme=white';
       }
-      //$('#player').attr("src", url);
       document.getElementById("player").src = url;
     });
   </script>

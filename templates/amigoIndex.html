@@ -6,7 +6,7 @@
       <h1>Joined queue <div class="capitalize">{{r_id}}</div></h1>
     </div>
     <h3>Search for some tunes!</h3>
-    <form method="post" action="/searchTrack/{{r_id}}" value="hello">
+    <form method="post" action="/{{r_id}}/searchTrack" value="hello">
       <input id="track-search-input" type="text" class="line" name="amigo[search]" placeholder="SexyBack, probably" autocomplete="off" />
       <input id="search-btn" type="submit" value="Search"/>
     </form>
