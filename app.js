@@ -155,7 +155,7 @@ app.get('/:r_id', function(req, res) {
     res.render('amigoIndex.html', 
       { 
         r_id: r_id, 
-        title: 'Adding to ' + r_id + ' | '
+        title: 'Contributing | '
       });
   }
 });
@@ -186,12 +186,6 @@ app.get('/host/:r_id', function(req, res) {
       title: 'Hosting | '
     });
 });
-
-// app.get('/amigo/:r_id', function(req, res) {
-
-//   r_id = req.params.r_id;
-//   res.render('amigoIndex.html', { r_id: r_id});
-// });
 
 // GET /auth/spotify
 //   Use passport.authenticate() as route middleware to authenticate the
@@ -237,7 +231,7 @@ app.post('/searchTrack/:r_id', function(req, res) {
         user: req.user, 
         tracks: data.body.tracks.items,
         r_id: r_id,
-        title: 'Search results | '
+        title: 'Search results for ' + search + ' | '
       });
   }, function(err) {
     console.error(err);

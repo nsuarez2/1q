@@ -19,6 +19,11 @@ body {
   height: 100%;
 }
 
+.capitalize {
+  display: inline;
+  text-transform: capitalize;
+}
+
 a {
   text-decoration: none;
 }

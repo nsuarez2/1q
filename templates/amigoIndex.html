@@ -3,7 +3,7 @@
 {% block content %}
   <div id="amigo">
     <div class="info-banner">
-      <h1>Joined queue {{r_id}}</h1>
+      <h1>Joined queue <div class="capitalize">{{r_id}}</div></h1>
     </div>
     <h3>Search for some tunes!</h3>
     <form method="post" action="/searchTrack/{{r_id}}" value="hello">
