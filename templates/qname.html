@@ -29,18 +29,13 @@
 
       $("form").submit(function(e) {
         var nameInput = $("#qname-input").val();
+        
         if (!nameInput) {
           $("#err-msg").html("Please just participate and enter a queue name.");
           e.preventDefault();
           return false;
         }
-        if (nameInput == "host" ||
-            nameInput == "login" ||
-            nameInput == "logout" ||
-            nameInput == "account" ||
-            nameInput == "amigo" ||
-            nameInput == "callback" ||
-            nameInput == "searchTrack") {
+        if (nameInput == "host" || nameInput == "searchTrack") {
           $("#err-msg").html("That's a weird queue name choice. Try something else please");
           e.preventDefault();
           return false;
