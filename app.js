@@ -5,6 +5,7 @@ var express = require('express'),
     server = http.createServer(app), 
     io = require('socket.io').listen(server),
     bodyParser = require('body-parser'),
+    methodOverride = require('method-override'),
     cookieParser = require('cookie-parser'),
     swig = require('swig'),
     collections = require('pycollections'),
@@ -35,6 +36,7 @@ app.use(bodyParser.urlencoded({
     extended: true
 }));
 app.use(bodyParser.json());
+app.use(methodOverride());
 app.use(express.static(__dirname + '/styles'));
 app.use(favicon(__dirname + '/favicon.ico'));
 app.engine('html', consolidate.swig);
@@ -69,7 +71,6 @@ app.get('/:r_id/host', function(req, res) {
   var r_id = req.params.r_id;
   res.render('hostIndex.html', 
     { 
-      user: req.user, 
       room_id: r_id, 
       title: 'Hosting | '
     });
@@ -87,7 +88,6 @@ app.post('/:r_id/searchTrack', function(req, res) {
     var topTrack = data.body.tracks.items[0];
     res.render('searchResults.html', 
       {
-        user: req.user, 
         tracks: data.body.tracks.items,
         r_id: r_id,
         title: 'Search results for ' + search + ' | '
